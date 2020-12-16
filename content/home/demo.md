@@ -22,15 +22,14 @@ design:
     image_darken: 0.6
     image_parallax: true
     image_position: center
-    image_size: cover
+    image_size: 100%
     text_color_light: true
   spacing:
     padding: ["20px", "0", "20px", "0"]
 ---
 
-<div id='header-text' style="text-align:left;width:50%;opacity: 0">
-  Donato Crisostomi is a Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. His research interests include Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    Donato Crisostomi is a Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. His research interests include Lorem ipsum dolor sit amet, consectetur adipisicing elit
+<div id='header-text' style="text-align:left;width:50%;opacity: 0; height: 20em">
+
 </div>
 
 
