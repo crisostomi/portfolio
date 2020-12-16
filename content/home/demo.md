@@ -28,7 +28,7 @@ design:
     padding: ["20px", "0", "20px", "0"]
 ---
 
-<div id='header-text' style="text-align:left;opacity: 0; height: 20em">
+<div id='header-text' style="height: 30vh">
 
 </div>
 
