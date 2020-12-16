@@ -12,7 +12,7 @@ headless: true
 # Order that this section appears on the page.
 weight: 15
 
-title: Demos
+title: 
 subtitle:
 
 design:
@@ -28,11 +28,10 @@ design:
     padding: ["20px", "0", "20px", "0"]
 ---
 
-# Donato Crisostomi
-
-#### I am a student in Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-
+<div id='header-text' style="text-align:left;width:50%;opacity: 0">
+  Donato Crisostomi is a Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. His research interests include Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Donato Crisostomi is a Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. His research interests include Lorem ipsum dolor sit amet, consectetur adipisicing elit
+</div>
 
 
 
