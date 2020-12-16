@@ -22,29 +22,18 @@ date_format: Jan 2006
 #   `title`, `organization`, and `date_start` are the required parameters.
 #   Leave other parameters empty if not required.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
+
 item:
-- certificate_url: https://www.coursera.org
-  date_end: ""
-  date_start: "2018-10-01"
-  description: ""
-  organization: Coursera
-  organization_url: https://www.coursera.org
-  title: Neural Networks and Deep Learning
-  url: ""
-- certificate_url: https://www.edx.org
-  date_end: ""
-  date_start: "2018-03-01"
-  description: Formulated informed blockchain models, hypotheses, and use cases.
-  organization: edX
+- date_start: "2019-11-21"
+  description: "Selected among all the students and PhDs of my faculty as one of the 20 most meritorious students to discuss the ethical and juridical implications of artificial intelligence."
+  organization: Italian Chamber of Deputies
+  title: Invited attendee at the conference for Ethics and Law of Artificial Intelligence
+  url: "https://fondazioneleonardo-cdm.com/it/news/statuto-etico-e-giuridico-dellintelligenza-artificiale/"
+- date_end: ""
+  date_start: "2020-08-03"
+  description: Selected among the most meritorious CS students to attend a week of lectures with faculty from participating institutions on a variety of cutting-edge research topics in computer science.
+  organization: Cornell, Maryland and Max Planck
   organization_url: https://www.edx.org
-  title: Blockchain Fundamentals
-  url: https://www.edx.org/professional-certificate/uc-berkeleyx-blockchain-fundamentals
-- certificate_url: https://www.datacamp.com
-  date_end: "2017-12-21"
-  date_start: "2017-07-01"
-  description: ""
-  organization: DataCamp
-  organization_url: https://www.datacamp.com
-  title: 'Object-Oriented Programming in R: S3 and R6 Course'
-  url: ""
+  title: Pre-Doctoral Research School attendee
+  url: https://cmmrs.mpi-sws.org/
 ---

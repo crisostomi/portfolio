@@ -22,24 +22,24 @@ date_format: Jan 2006
 #   Leave `date_end` empty if it's your current employer.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
-  - title: CEO
-    company: GenCoin
+  - title: Competitive Programming Mentor
+    company: Sapienza, University of Rome
     company_url: ''
-    location: California
-    date_start: '2017-01-01'
-    date_end: ''
+    location: Rome
+    date_start: '2020-09-22'
+    date_end: '2020-10-22'
+    description: |2- 
+        * Mentor and trainer for the preparatory course for the Italian Olympiads of Informatics;
+        * assisted the students to efficiently solve computer science problems.
+        
+  - title: Volunteer Research Intern
+    company: Sapienza, University of Rome
+    company_url: ''
+    location: Rome
+    date_start: '2019-04-20'
+    date_end: '2019-10-22'
     description: |2-
-        Responsibilities include:
-        
-        * Analysing
-        * Modelling
-        * Deploying
-        
-  - title: Professor
-    company: University X
-    company_url: ''
-    location: California
-    date_start: '2016-01-01'
-    date_end: '2016-12-31'
-    description: Taught electronic engineering and researched semiconductor physics.
+        * Conceptual analysis, design and development of a software toolchain for the generation of simulable cellular models;
+        * Fitting of the resulting biological parameters through artificial intelligence techniques;
+        * Autonomous acquisition of biological data from online repositories.
 ---

@@ -6,7 +6,7 @@ title: Donato Crisostomi
 superuser: true
 
 # Role/position/tagline
-role: MSc student of Computer Science
+role: MSc student in Computer Science
 
 # Organizations/Affiliations to show in About widget
 organizations:
