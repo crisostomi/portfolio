@@ -33,7 +33,6 @@ item:
   date_start: "2020-08-03"
   description: Selected among the most meritorious CS students to attend a week of lectures with faculty from participating institutions on a variety of cutting-edge research topics in computer science.
   organization: Cornell, Maryland and Max Planck
-  organization_url: https://www.edx.org
   title: Pre-Doctoral Research School attendee
   url: https://cmmrs.mpi-sws.org/
 ---
