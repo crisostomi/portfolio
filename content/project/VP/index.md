@@ -1,22 +1,22 @@
 ---
-title: Virality Prediction via GNNs
-summary: An example of using the in-built project page.
+title: Virality Prediction via Graph Neural Networks
+summary: Implementation of an ad-hoc graph neural network to predict how much a given Twitter hashtag will spread through the social network. 
 tags:
-- Deep Learning
-date: "2016-04-27T00:00:00Z"
+- Geometric Deep Learning, Social Networks, Graph Machine Learning
+date: "2020-08-01T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
 external_link: ""
 
 image:
-  caption: Photo by rawpixel on Unsplash
+  caption: ""
   focal_point: Smart
 
 links:
 - icon: colab
   icon_pack: custom
   name: Notebook
-  url: https://drive.google.com/file/d/1sQabjGT21TsE_5H4rkRjOm10nG4gO4L8/view?usp=sharing
+  url: https://colab.research.google.com/drive/1sQabjGT21TsE_5H4rkRjOm10nG4gO4L8?authuser=1
   
 url_code: ""
 url_pdf: ""

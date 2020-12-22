@@ -1,22 +1,22 @@
 ---
 title: Topological Signal Processing over Simplicial Complexes
-summary: An example of using the in-built project page.
+summary: Extension of the graph signal processing framework to simplicial complexes, with applications on real world scenarios.
 tags:
-- Deep Learning
-date: "2016-04-27T00:00:00Z"
+- Deep Learning, Geometric Deep Learning, Signal Processing
+date: "2020-10-20T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
 external_link: ""
 
 image:
-  caption: Photo by rawpixel on Unsplash
+  caption: ""
   focal_point: Smart
 
 links:
-- icon: twitter
-  icon_pack: fab
-  name: Follow
-  url: https://twitter.com/georgecushen
+- icon: ""
+  icon_pack: ""
+  name: Notebook
+  url: ""
 url_code: ""
 url_pdf: ""
 url_slides: ""

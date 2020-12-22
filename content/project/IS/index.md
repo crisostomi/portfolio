@@ -1,22 +1,22 @@
 ---
-title: Image Synthesis via Diffusion Denoising
-summary: An example of using the in-built project page.
+title: Towards Conditionality for Probabilistic Diffusion Models
+summary: Testing of various approaches for the integration of conditionality into probabilistic diffusion models for image synthesis.
 tags:
-- Deep Learning
-date: "2016-04-27T00:00:00Z"
+- Generative deep learning, Deep learning
+date: "2020-12-15T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
 external_link: ""
 
 image:
-  caption: Photo by rawpixel on Unsplash
+  caption: ""
   focal_point: Smart
 
 links:
-- icon: twitter
-  icon_pack: fab
-  name: Follow
-  url: https://twitter.com/georgecushen
+- icon: 
+  icon_pack: 
+  name: Notebook
+  url: https://drive.google.com/file/d/1pFQ7-sML0Vp6muDnLHSkthVNX4dhq8t7/view?usp=sharing
 
 url_code: ""
 url_pdf: ""
