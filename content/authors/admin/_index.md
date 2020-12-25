@@ -25,11 +25,13 @@ interests:
 # Education to show in About widget
 education:
   courses:
-  - course: MSc in Computer Science
+  - course: MSc in Computer Science 
     institution: Sapienza, University of Rome
+    grade: ""
     year: 2021
   - course: BSc in Computer Science
     institution: Sapienza, University of Rome
+    grade: "110/110 with honours"
     year: 2019
 
 # Social/Academic Networking
@@ -67,5 +69,4 @@ highlight_name: false
 I am a passionate Computer Science student moving my first steps as a researcher.
 
 My interests span across various topics of the field, in particular centering around artificial intelligence; I am especially excited by causality and applications of deep learning over non-eucliden domains.   
-
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "media/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
+<!-- {{< icon name="download" pack="fas" >}} Download my {{< staticref "media/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}. -->

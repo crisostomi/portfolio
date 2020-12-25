@@ -13,8 +13,8 @@ image:
   focal_point: Smart
 
 links:
-- icon: colab
-  icon_pack: custom
+- icon: "code"
+  icon_pack: "fas"
   name: Notebook
   url: https://colab.research.google.com/drive/1sQabjGT21TsE_5H4rkRjOm10nG4gO4L8?authuser=1
   

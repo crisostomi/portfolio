@@ -13,8 +13,8 @@ image:
   focal_point: Smart
 
 links:
-- icon: 
-  icon_pack: 
+- icon: "code"
+  icon_pack: "fa"
   name: Notebook
   url: https://drive.google.com/file/d/1pFQ7-sML0Vp6muDnLHSkthVNX4dhq8t7/view?usp=sharing
 
