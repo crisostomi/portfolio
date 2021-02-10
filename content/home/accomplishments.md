@@ -35,4 +35,12 @@ item:
   organization: Cornell, Maryland and Max Planck
   title: Pre-Doctoral Research School attendee
   url: https://cmmrs.mpi-sws.org/
+- date_end: "2021-10-22"
+  date_start: "2021-02-08"
+  description: First place winner of a highly competitive extracurricular program aimed at training MSc students in conducting scientific research, regarding in my case meta-learning and few-shot learning.
+  organization: Sapienza, University of Rome
+  title: Honours Programme in Computer Science
+  url: https://www.studiareinformatica.uniroma1.it/master-course-computer-science/honours-programme
 ---
+
+

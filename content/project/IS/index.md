@@ -16,7 +16,7 @@ links:
 - icon: "code"
   icon_pack: "fa"
   name: Notebook
-  url: https://drive.google.com/file/d/1pFQ7-sML0Vp6muDnLHSkthVNX4dhq8t7/view?usp=sharing
+  url: https://colab.research.google.com/drive/1RLcMx66DusWVatEOHxa1vLEeQjVTJZge
 
 url_code: ""
 url_pdf: ""

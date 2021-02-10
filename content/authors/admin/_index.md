@@ -14,13 +14,14 @@ organizations:
   url: https://www.uniroma1.it/en
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests revolve around artificial intelligence, in particular deep learning applied to non-euclidean domains. 
+bio: My research interests revolve around artificial intelligence, in particular causality, meta-learning and geometric deep learning, especially when graphs are involved.
 
 # Interests to show in About widget
 interests:
-- Artificial Intelligence
-- Deep Learning
-- Graph Theory
+- Artificial intelligence
+- Geometric deep learning
+- Network science
+- Meta learning
 
 # Education to show in About widget
 education:
@@ -55,9 +56,13 @@ social:
 # Link to a PDF of your resume/CV.
 # To use: copy your resume to `static/media/resume.pdf`, enable `ai` icons in `params.toml`, 
 # and uncomment the lines below.
-# - icon: cv
-#   icon_pack: ai
-#   link: media/resume.pdf
+- icon: cv
+  icon_pack: ai
+  link: https://drive.google.com/file/d/10Kxt2-4QIokTOeTnlQvYJhpzvVroD7Ds/view?usp=sharing
+
+# - icon: file-pdf
+#  icon_pack: fa
+#  link: https://drive.google.com/file/d/10Kxt2-4QIokTOeTnlQvYJhpzvVroD7Ds/view?usp=sharing
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email: ""
@@ -66,7 +71,7 @@ email: ""
 highlight_name: false
 ---
 
-I am a passionate Computer Science student moving my first steps as a researcher.
+I am a passionate *computer science* student moving his first steps as a researcher.
 
-My interests span across various topics of the field, in particular centering around artificial intelligence; I am especially excited by causality and applications of deep learning over non-eucliden domains.   
+My interests span across various topics of the field, with a focus on *artificial intelligence*; I am particularly excited by **causality**, **meta-learning** and **geometric deep learning**, especially when graphs are involved.
 <!-- {{< icon name="download" pack="fas" >}} Download my {{< staticref "media/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}. -->
