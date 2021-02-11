@@ -4,6 +4,7 @@ summary: Implementation of an ad-hoc graph neural network to predict how much a 
 tags:
 - Geometric Deep Learning, Social Networks, Graph Machine Learning
 date: "2020-08-01T00:00:00Z"
+js: js/resp_mathjax.js
 
 # Optional external URL for project (replaces project detail page).
 external_link: ""
@@ -89,11 +90,16 @@ following two features
     $$s_{v}^{(0)} = \text{initial activation state of node } v$$
 
 -   and whether it is a final adopter, which is the label we want to
-    predict: $$s_{v}^{(T)} = \text{final activation state of node } v$$
+    predict: 
+    <div class="math">
+      \begin{align}
+        s_{v}^{(T)} = \text{final activation state of node } v
+      \end{align}
+    </div>
 
 The final virality coefficient for the piece of information $m$ is
 eventually obtained by counting the final adopters.
-<div class="math">
+<div class="math" id="box">
   \begin{align}
   \mathcal{P}_{m} = \sum_{v \in \mathcal{V}} s_{v}^{(T)} = n_{\infty}^m
   \end{align}
@@ -307,3 +313,4 @@ For each node, we computed the following features:
 # Results
 
 # Conclusions
+
