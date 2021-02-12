@@ -44,14 +44,15 @@ slides: ""
 
 # Introduction
 
-Richard Feynman once said that:  
-"What I cannot create, I do not understand."
+Richard Feynman once said that
+
+>> What I cannot create, I do not understand.
 
 and, in the context of machine learning, this means that for machines to
 understand their input data, they should learn to create it. Moreover,
 being able to generate unseen images opens the door to some
 groundshaking applications, from super-resolution, to text-to-image
-translation.
+translation (Ledig et al. 2016; Gorti and Ma 2018).
 
 Image synthesis nevertheless has been one of the most challenging tasks
 for machine learning to tackle. In fact, generative models are needed to
@@ -59,31 +60,33 @@ generate new unseen images; but while we witnessed a huge leap forward
 in discriminative models during the first years of the last decade
 thanks to neural architectures, generative models initially failed to
 keep up. It was in $2014$ that *Goodfellow et al.* came up with
-*Generative Adversarial Networks* [@goodfellow2014generative]. GANs and
+*Generative Adversarial Networks* (Goodfellow et al. 2014). GANs and
 their evolutions have been the state-of-the-art since then, but a very
 recent paper shows that similar performance can be obtained with a
 different model that leverages probabilistic diffusion in order to
-generate images [@ho2020denoising].
+generate images (Ho, Jain, and Abbeel 2020).
 
 Generative models have also been particularly useful to create
-artificial examples in order to augment datasets [@data-augmentation],
-but in order to generate new images belonging to a certain class, one
-would need to have a conditional model. Goal of this research is
-therefore to integrate class-conditionality in probabilistic diffusion
-models.
+artificial examples in order to augment datasets (Santos Tanaka and
+Aranha 2019), but in order to generate new images belonging to a certain
+class, one would need to have a conditional model. Goal of this research
+is therefore to integrate class-conditionality in probabilistic
+diffusion models.
 
 # Related work
 
 As anticipated, the most used generative architecture is *Generative
-Adversarial Networks* [@goodfellow2014generative], which is composed of
-two networks that are trained *adversarily*: a *generator* is trained in
+Adversarial Networks* (Goodfellow et al. 2014), which is composed of two
+networks that are trained *adversarily*: a *generator* is trained in
 such a way that a *discriminator* cannot distinguish between its
 generated samples and the real ones, while simultaneously training the
 discriminator to be able to distinguish between fake samples and real
 ones. To integrate class-conditionality in GANs, various approaches have
 been tried: *Brock et al.* provide class information to the generator
-with *conditional batch norm* [@Brock2018gan], while *Odena et al.*
-leverage an auxiliary classifier [@odena2017conditional].
+with *conditional batch norm* (Brock, Donahue, and Simonyan 2018), while
+*Odena et al.* leverage an auxiliary classifier (Odena, Olah, and Shlens
+2017).
+
 
 # Proposed method
 
@@ -93,11 +96,13 @@ changes through time. For the Markov property to hold, the distribution
 of a state must depend only on the distribution of the previous state.
 
 ![The directed graphical model used in the
-project.](figures/markov-diffusion.png)<a name="#fig:markov
-"></a>
+project.](figures/markov-diffusion.png){#fig:markov
+width=".8\\textwidth"}
+
 
 The training phase consists of two phases: a forward pass and a reverse
-pass, as can be seen in [1](#fig:markov). In the former, also called the diffusion
+pass, as can be seen in [1](#fig:markov){reference-type="ref"
+reference="fig:markov"}. In the former, also called the diffusion
 process, Gaussian noise is added to the image according to a fixed
 schedule so each transition in the Markov chain
 $q(\mathbf{x}_{t}| \mathbf{x}_{t-1})$ represents the addition of
@@ -106,14 +111,18 @@ are learned in order to reconstruct the destroyed signal; the parameters
 are learned by optimizing the variational bound on negative
 loglikelihood:
 
-$$\mathbb{E}\left[ - \log p_{\theta}(\mathbf{x}_0) \right] \leq \mathbb{E}_q \left[ - \log \frac{p_\theta (\mathbf{x}_0, \dots, \mathbf{x}_T)}{q(\mathbf{x}_1, \dots, \mathbf{x}_T|\mathbf{x}_0)}\right] = \mathbb{E}_q\left[ - \log \ p(\mathbf{x}_T) - \sum_{t \geq 1} \log \frac{p_\theta (\mathbf{x}_{t-1}|\mathbf{x}_t)}{q(\mathbf{x}_t | \mathbf{x}_{t-1})} \right]$$
-
+<div class="math">
+\begin{align}
+  \mathbb{E}\left[ - \log p_{\theta}(\mathbf{x}_0) \right] &\leq \mathbb{E}_q \left[ - \log \frac{p_\theta (\mathbf{x}_0, \dots, \mathbf{x}_T)}{q(\mathbf{x}_1, \dots, \mathbf{x}_T|\mathbf{x}_0)}\right] \\
+  &= \mathbb{E}_q\left[ - \log \ p(\mathbf{x}_T) - \sum_{t \geq 1} \log \frac{p_\theta (\mathbf{x}_{t-1}|\mathbf{x}_t)}{q(\mathbf{x}_t | \mathbf{x}_{t-1})} \right]
+\end{align}
+</div>
 We employ the architecture suggested by the original paper, in which the
-denoiser is a *U-Net* [@U-net], shown in
-[2](#fig:u-net).
+denoiser is a *U-Net* (Ronneberger, Fischer, and Brox 2015), shown in
+[2](#fig:u-net){reference-type="ref" reference="fig:u-net"}.
 
 ![The popular *U-Net* architecture used for the
-denoiser.](figures/U-net.png)<a name="#fig:u-net "></a>
+denoiser.](figures/U-net.png){#fig:u-net width=".8\\textwidth"}
 
 ## Conditional Batch Norm
 
@@ -127,7 +136,7 @@ $$\text{BN}_{\gamma, \beta}(x_i) = \gamma_i \frac{x_i - \mathbb{E}(x_i)}{\sqrt{v
 In *CBN* we want to predict $\gamma$ and $\beta$ from an embedding of
 the class, so that the class may manipulate entire feature maps by
 scaling them up or down, negating them, or shutting them off completely
-[@odena2017conditional].
+(Odena, Olah, and Shlens 2017).
 
 The integration of *CBN* in the architecture is done by replacing the
 *Batch Norm* layers inside the denoiser architecture with *conditional*
@@ -136,9 +145,9 @@ original model as $M_{CBN}$.
 
 ## Auxiliary Classifier
 
-Analogously to what has been done in [@odena2017conditional] for GANs,
-we have added an auxiliary classifier to the original architecture of
-the denoiser.
+Analogously to what has been done in (Odena, Olah, and Shlens 2017) for
+GANs, we have added an auxiliary classifier to the original architecture
+of the denoiser.
 
 To provide the class information to the denoiser, the label is embedded
 and reshaped to be the same dimension as one of the channels of the
@@ -179,42 +188,45 @@ To test our proposed conditional methods, to simplify the visual
 inspection of the results, we instead created an ad-hoc dataset of only
 two classes with the aim of maximizing the difference between them. To
 this end, we took a subset of $\approx 10k$ images from the *Stanford
-dogs* and the *Stanford cars* datasets.
+dogs* (Khosla et al. 2011) and the *Stanford cars* (Krause et al. 2013)
+datasets.
 
 # Results
 
 All the unconditional and conditional versions of the model that follow
 have been trained for $\approx 100$ epochs. The unconditional model was
 first tested on the insect-pest dataset, yielding the results in
-[3](#fig:insects-64).
+[3](#fig:insects-64){reference-type="ref" reference="fig:insects-64"}.
 As anticipated, we then tested it on the same dataset at higher
 resolution, yielding the results in
-[4](#fig:insects-128),
+[4](#fig:insects-128){reference-type="ref" reference="fig:insects-128"},
 and on the cars dataset with the same resolution, resulting in
-[5](#fig:cars-64). As it
+[5](#fig:cars-64){reference-type="ref" reference="fig:cars-64"}. As it
 is evident from the samples, the resolution plays a strong role in
 generating realistic images, providing the model more information to
 leverage for the generation. The Inception Scores are as follow
 
 <center>
-
 | 		      | 64 			| 128		  |
 | :---------: | :---------: | :---------: |
 | insects     | 4.2      	| 4.08		  |
 | cars		  | 3.32        |			  |
-
 </center>
 
 Regarding the conditional model, the two proposed methods yielded
 totally different results. $M_{CBN}$ converges to a small reconstruction
 error, and the class of the generated images can often be inferred
-visually; see for example [6](#cbn) which is a batch of generated images for the 'dog' class and
-[7](#fig:cbn-generated-cars) which is a batch of generated images
+visually; see for example
+[6](#fig:cbn-generated-dogs){reference-type="ref"
+reference="fig:cbn-generated-dogs"} which is a batch of generated images
+for the 'dog' class and
+[7](#fig:cbn-generated-cars){reference-type="ref"
+reference="fig:cbn-generated-cars"} which is a batch of generated images
 for the 'car' class. 
 
 class 'dog'             |  class 'car'
 :-------------------------:|:-------------------------:
-![Images generated by $M_{AC}$ when supplied class 'dog'.](figures/cbn-generated-dogs.png)<a name="#fig:cbn-generated-dogs"></a>  |  ![Images generated by $M_{AC}$ when supplied class 'car'.](figures/cbn-generated-cars.png)<a name="#fig:cbn-generated-cars"></a>
+![Images generated by $M_{CBN}$ when supplied class 'dog.'](figures/cbn-generated-dogs.png){#fig:cbn-generated-dogs width=".6\\textwidth"} |  ![Images generated by $M_{CBN}$ when supplied class 'car.'](figures/cbn-generated-cars.png){#fig:cbn-generated-cars width=".6\\textwidth"}
 
 Nevertheless, the results appear as messy color
 spots which do not resemble any realistic image. As the reconstruction
@@ -225,21 +237,23 @@ of the denoiser and class information does not influence the rest of the
 sampling process.
 
 ![*t-sne* plot of the images generated by
-$M_{CBN}$.](figures/CBN-t-sne-points.png)<a name="#fig:cbn-t-sne-points
-"></a>
+$M_{CBN}$.](figures/CBN-t-sne-points.png){#fig:cbn-t-sne-points
+width=".4\\textwidth"}
 
 To check whether there is a class-related distinction between the
 generated images, we plotted the images with *t-SNE*, yielding the
 results that can be seen in
-[11](#fig:cbn-t-sne-points) and
-[12](#fig:cbn-t-sne-images). The points seem to be fairly
+[11](#fig:cbn-t-sne-points){reference-type="ref"
+reference="fig:cbn-t-sne-points"} and
+[12](#fig:cbn-t-sne-images){reference-type="ref"
+reference="fig:cbn-t-sne-images"}. The points seem to be fairly
 separable, indicating that the class is indeed infused in the generated
 images.
 
 ![*t-sne* plot of the images generated by $M_{CBN}$ with each point
 visualized as the image that it
-embeds.](figures/CBN-t-sne-images.png)<a name="#fig:cbn-t-sne-images
-"></a>
+embeds.](figures/CBN-t-sne-images.png){#fig:cbn-t-sne-images
+width=".8\\textwidth"}
 
 $M_{AC}$ instead results in the converse, yielding almost realistic
 images that do not seem to be much influenced by the class. As a first
@@ -257,7 +271,7 @@ the rest of the model. This yielded the results in
 
 class 'dog'             |  class 'car'
 :-------------------------:|:-------------------------:
-![Images generated by $M_{AC}$ when supplied class 'dog'.](figures/ac-generated-dogs.png)<a name="#fig:ac-generated-dogs"></a>  |  ![Images generated by $M_{AC}$ when supplied class 'car'.](figures/ac-generated-cars.png)<a name="#fig:ac-generated-cars"></a>
+![Images generated by $M_{AC}$ when supplied class 'dog.'](figures/ac-generated-dogs.png){#fig:ac-generated-dogs width=".6\\textwidth"} |  ![Images generated by $M_{AC}$ when supplied class 'car.'](figures/ac-generated-cars.png){#fig:ac-generated-cars width=".6\\textwidth"}
 
 
 The images resemble cars, mostly
@@ -266,32 +280,30 @@ images to the model, but with no significant improvement. The generated
 images in fact do not resemble their class, but the classification loss
 still goes rapidly down; to provide an explanation, we visually
 inspected the images and found out that artifacts were present in every
-image ([10](#fig:ac-generated-128)), probably resulting from the
+image ([10](#fig:ac-generated-128){reference-type="ref"
+reference="fig:ac-generated-128"}), probably resulting from the
 generator 'tricking' the classifier, emphasizing features that resulted
 in high confidence guesses in the latter. 
-![Images generated by $M_{AC}$ when supplied class 'car' at resolution
-$128$; artifacts are
-circled.](figures/ac-generated-128.png)<a name="#fig:ac-generated-128
-"></a>
+
+![Images generated by $M_{AC}$ when supplied class 'car' at resolution $128$; artifacts are circled.](figures/ac-generated-128.png){#fig:ac-generated-128 width=".6\\textwidth"}
+
 We concluded that the model
 was not robust enough, and therefore tried to employ a finetuned
 *ResNet18* classifier, but this did not solve the issue.
 
-![*t-sne* plot of the images generated by
-$M_{AC}$.](figures/AC-t-sne-points.png)<a name="#fig:ac-t-sne-points
-"></a>
+![*t-sne* plot of the images generated by $M_{AC}$.](figures/AC-t-sne-points.png){#fig:ac-t-sne-points width=".4\\textwidth"}
+
 
 As before, we plotted the images with *t-SNE* to check whether there is
 a class-related distinction between the images; as can be seen in
-[13](#fig:ac-t-sne-points) and
-[14](#fig:ac-t-sne-images), this time the points are all mixed up,
+[13](#fig:ac-t-sne-points){reference-type="ref"
+reference="fig:ac-t-sne-points"} and
+[14](#fig:ac-t-sne-images){reference-type="ref"
+reference="fig:ac-t-sne-images"}, this time the points are all mixed up,
 indicating that the model fails to conditionate the generation on the
 class.
 
-![*t-sne* plot of the images generated by $M_{AC}$ with each point
-visualized as the image that it
-embeds.](figures/AC-t-sne-images.png)<a name="#fig:ac-t-sne-images
-"></a>
+![*t-sne* plot of the images generated by $M_{AC}$ with each point visualized as the image that it embeds.](figures/AC-t-sne-images.png){#fig:ac-t-sne-images width=".8\\textwidth"}
 
 
 # Conclusions
@@ -303,29 +315,78 @@ to do. This also emphasizes that, while seemingly close to GANs, this
 family of models requires ad-hoc research, as they are based on
 different theorical aspects.
 
-<!-- # Additional resources -->
+# References
 
-<!-- ![Unconditional model applied to the insect-pest dataset with resolution
-$64$.](figures/unconditional-insects-64.png)<a name="#fig:insects-64
-"></a> -->
+::: {#refs .references .csl-bib-body .hanging-indent}
 
+::: {#ref-Brock2018gan .csl-entry}
+Brock, Andrew, Jeff Donahue, and Karen Simonyan. 2018. "Large Scale GAN
+Training for High Fidelity Natural Image Synthesis." *CoRR*
+abs/1809.11096. <http://arxiv.org/abs/1809.11096>.
+:::
+- - -
+::: {#ref-goodfellow2014generative .csl-entry}
+Goodfellow, Ian J., Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David
+Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio. 2014.
+"Generative Adversarial Networks." <http://arxiv.org/abs/1406.2661>.
+:::
+- - -
 
+::: {#ref-text2image .csl-entry}
+Gorti, Satya Krishna, and Jeremy Ma. 2018. "Text-to-Image-to-Text
+Translation Using Cycle Consistent Adversarial Networks." *CoRR*
+abs/1808.04538. <http://arxiv.org/abs/1808.04538>.
+:::
+- - -
 
-<!-- ![Unconditional model applied to the insect-pest dataset with resolution
-$128$.](figures/unconditional-insects-128.png)<a name="#fig:insects-128
-"></a>
- -->
-<!-- ![Unconditional model applied to the cars dataset with resolution
-$64$.](figures/unconditional-cars-64.png)<a name="#fig:cars-64
-"></a> -->
+::: {#ref-ho2020denoising .csl-entry}
+Ho, Jonathan, Ajay Jain, and Pieter Abbeel. 2020. "Denoising Diffusion
+Probabilistic Models." <http://arxiv.org/abs/2006.11239>.
+:::
+- - -
 
-<!-- ![Images generated by $M_{CBN}$ when supplied class
-'dog'.](figures/cbn-generated-dogs.png)<a name="#cbn"></a>
+::: {#ref-stanford-dogs .csl-entry}
+Khosla, Aditya, Nityananda Jayadevaprakash, Bangpeng Yao, and Li
+Fei-Fei. 2011. "Novel Dataset for Fine-Grained Image Categorization." In
+*First Workshop on Fine-Grained Visual Categorization, IEEE Conference
+on Computer Vision and Pattern Recognition*. Colorado Springs, CO.
+:::
+- - -
 
-![Images generated by $M_{CBN}$ when supplied class
-'car'.](figures/cbn-generated-cars.png)<a name="#fig:cbn-generated-cars
-"></a>
- -->
+::: {#ref-stanford-cars .csl-entry}
+Krause, Jonathan, Michael Stark, Jia Deng, and Li Fei-Fei. 2013. "3d
+Object Representations for Fine-Grained Categorization." In *4th
+International IEEE Workshop on 3d Representation and Recognition
+(3dRR-13)*. Sydney, Australia.
+:::
+- - -
 
+::: {#ref-super-resolution .csl-entry}
+Ledig, Christian, Lucas Theis, Ferenc Huszar, Jose Caballero, Andrew P.
+Aitken, Alykhan Tejani, Johannes Totz, Zehan Wang, and Wenzhe Shi. 2016.
+"Photo-Realistic Single Image Super-Resolution Using a Generative
+Adversarial Network." *CoRR* abs/1609.04802.
+<http://arxiv.org/abs/1609.04802>.
+:::
+- - -
 
+::: {#ref-odena2017conditional .csl-entry}
+Odena, Augustus, Christopher Olah, and Jonathon Shlens. 2017.
+"Conditional Image Synthesis with Auxiliary Classifier GANs."
+<http://arxiv.org/abs/1610.09585>.
+:::
+- - -
 
+::: {#ref-U-net .csl-entry}
+Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. 2015. "U-Net:
+Convolutional Networks for Biomedical Image Segmentation." *CoRR*
+abs/1505.04597. <http://arxiv.org/abs/1505.04597>.
+:::
+- - -
+
+::: {#ref-data-augmentation .csl-entry}
+Santos Tanaka, Fabio Henrique Kiyoiti dos, and Claus Aranha. 2019. "Data
+Augmentation Using GANs." *CoRR* abs/1904.09135.
+<http://arxiv.org/abs/1904.09135>.
+:::
+:::
