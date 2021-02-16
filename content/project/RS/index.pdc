@@ -407,7 +407,7 @@ model must be able to discriminate among $8590$ classes; to understand
 what that means, let's see what score would achieve a random baseline.
 $$\begin{aligned}
 	P\left\{hit\right\} &= \sum_{i = 1}^{10} P\left\{pred_i \text{ is correct} \right\}\\
-	&= \sum_{i=1}^{10} \frac{1}{\text{\# classes}} = 10 \cdot \frac{1}{8590} \approx 1e^{-4}\end{aligned}$$
+	&= \sum_{i=1}^{10} \frac{1}{\text{# classes}} = 10 \cdot \frac{1}{8590} \approx 1e^{-4}\end{aligned}$$
 
 ## Study case
 
