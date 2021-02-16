@@ -1,5 +1,5 @@
 ---
-title: Topological Signal Processing over Simplicial Complexes
+title: Topological Signal Processing over Simplicial Complexes (WIP)
 summary: Extension of the graph signal processing framework to simplicial complexes, with applications on real world scenarios.
 tags:
 - Deep Learning, Geometric Deep Learning, Signal Processing
