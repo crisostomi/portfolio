@@ -1,2 +1,0 @@
-regex to replace IDs
-\{\#[ \nA-Za-z0-9 \-\.\:'"'\\\=]*\}
