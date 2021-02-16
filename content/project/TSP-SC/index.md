@@ -31,4 +31,6 @@ url_video: ""
 slides: ""
 ---
 
-#Coming soon!
+ 
+
+# <center> Coming soon! </center>
