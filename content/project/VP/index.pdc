@@ -1,0 +1,489 @@
+---
+title: Virality Prediction via Graph Neural Networks
+summary: Implementation of an ad-hoc graph neural network to predict how much a given Twitter hashtag will spread through the social network. 
+tags:
+- Geometric Deep Learning, Social Networks, Graph Machine Learning
+date: "2020-08-01T00:00:00Z"
+js: js/resp_mathjax.js
+
+# Optional external URL for project (replaces project detail page).
+external_link: ""
+
+image:
+  caption: ""
+  focal_point: Smart
+
+links:
+- icon: "code"
+  icon_pack: "fas"
+  name: Notebook
+  url: https://colab.research.google.com/drive/1W6FVjrwm373AujSNUBLUjSZS8qwZoYCN
+  
+url_code: ""
+url_pdf: ""
+url_slides: ""
+url_video: ""
+
+# Slides (optional).
+#   Associate this project with Markdown slides.
+#   Simply enter your slide deck's filename without extension.
+#   E.g. `slides = "example-slides"` references `content/slides/example-slides.md`.
+#   Otherwise, set `slides = ""`.
+slides: ""
+---
+---
+# Introduction
+
+## Motivation
+
+What is virality? Virality, in its original meaning, refers to viruses
+that can only survive by continously spreading from one host to another
+in a parasitic manner; Actually, many real life phenomena exhibit a
+*spreading behaviour* to which we can extend the notion of virality.
+
+The ability to predict the spreading potential of a certain signal has
+evident benefits, for example providing a mean to prevent the spread of
+undesired phenomena such as diseases or fake news, but also allowing
+companies to exploit this information to improve their advertising
+campaigns.
+
+*Graphs* serve as an useful abstraction to model real world situations,
+and are well suited to represent spreading patterns:
+
+-   *nodes* represent components of interest (e.g. users in a social
+    network);
+
+-   *edges* define existing relations among these components;
+
+-   *node signal* represents the information, which is generated from
+    some source node, and is propagated to its neighboring nodes through
+    its edges, possibly iterating the process until all the nodes have
+    been reached.
+
+## Task formalization
+
+A spreading piece of information $m$ originates a *cascade* in the
+network, to formalize the problem as a learning task we distinguish two
+sets, namely
+
+-   *early adopters*, and
+
+-   *final adopters*.
+
+The former are the ones producing the information as they don't receive
+it from other nodes, while the latter are those who adopt the
+information at the end of the propagation process, or, if you think
+about it as a disease, those who get infected.
+
+![Spreading process.](figures/T2.png){#fig:spread-proc
+width=".5\\textwidth"}
+
+In the example, the information is originally produced by nodes $a$ and
+$e$ independently, and is then spread in subsequent moments until it
+stops. The final adopters will be all the nodes who have been reached by
+the information, including the early adopters.
+
+So, after a preprocessing step, each node will be characterized by the
+following two features
+
+-   whether it is an early adopter:
+    $$s_{v}^{(0)} = \text{initial activation state of node } v$$
+
+-   and whether it is a final adopter, which is the label we want to
+    predict: $$s_{v}^{(T)} = \text{final activation state of node } v$$
+
+The final virality coefficient for the piece of information $m$ is
+eventually obtained by counting the final adopters.
+$$\mathcal{P}_{m} = \sum_{v \in \mathcal{V}} s_{v}^{(T)} = n_{\infty}^m$$
+
+## Approaches
+
+As a node prediction task, both *feature-based* methods and
+*representation learning* methods can be exploited. The former approach
+heavily depends on the quality of the hand-crafted features, which are
+generally extracted heuristically, while the latter allows to
+automatically learn representations of node statuses which are suited
+for the task at hand. A possible way to do this is by embedding the
+graphs into a vector space, and then using conventional representation
+learning techniques; nevertheless, a more natural approach would be to
+instead generalize the machine learning models to non-euclidean domains:
+in the case of deep learning models, this is usually called *geometric
+deep learning*.
+
+# Data
+
+For our task, both synthetic data and real world data have been used.
+
+## Synthetic data
+
+The synthetic data generation involves two steps:
+
+1.  generating the social structure of interest;
+
+2.  generating a certain number of information cascades;
+
+### Social structure
+
+To artificially generate a social network structure which resembles a
+real one, *random graph models* are usually used. A good model should
+allow creating graphs for which the degree distribution follows a
+power-law, as happens in real social networks.
+
+A power law is a functional relationship $y = ax^{-c}$ between two
+quantities, where one quantity varies as a power of the other.
+
+By applying the logarithm to both parts we have that $$\begin{aligned}
+    y &= ax^{-c} \\
+    log(y) &= log(ax^{-c}) \\
+    log(y) &= log(a) -c \cdot log(x)\end{aligned}$$ As a consequence, we
+get that a power law appears as a line in a log log scale plot, as can
+be seen in the Twitter degree distribution in figure.
+
+![Twitter degree
+distribution.](figures/degree-distr.png){#fig:twit-deg-distr
+width=".5\\textwidth"}
+
+In the social network context it means that it is exponentially more
+likely to pick "normal people" with few friends or followers rather than
+popular profiles, called "celebrities" or "authorities".
+
+For this reason we opted for a *preferential attachment* model, which
+works in the following way: you begin with a single node with a self
+loop, when you have built a graph with $N-1$ nodes, you add the $N$-th
+node with an edge that goes from $N$ to a node $i$ chosen accordingly
+with a probability proportional to the degree of $i$.
+
+Inductive definition of the model:
+
+-   Base step: $G_1$ is a single node with a self loop;
+
+-   Inductive step (for $i = 2, 3, \ldots$):
+
+    1.  add node $i$ to $G_i$;
+
+    2.  add a "*half edge*" coming out from node $i$;
+
+    3.  choose a node $j$ randomly with probability proportional to its
+        degree, i.e.,
+        $P\left\{\text{neighbor of $N$ is $i$}\right\} = \frac{deg(i)}{\sum_{k=1}^{N} deg(k)}$,
+        where the denominator is a normalization factor;
+
+    4.  close the *half edge* from $i$, by connecting it to $j$.
+
+### Information cascades
+
+The cascades are generated with the *Independent Cascades* model, which
+works in the following way: Let's assume we have $k$ nodes holding some
+piece of information (the seed set), the time is discrete and this
+information spreads over time.
+
+-   at time $t_0$ the only persons having the information will be the
+    ones in the seed seet;
+
+-   at time $t_i$ for each of the edges incident on the nodes having the
+    information we will be flipping a coin:
+
+    -   with prob $p$ the information will spread on that edge;
+
+    -   else the edge is lost forever.
+
+## Real data
+
+Similarly to the synthetic data generation, the process to obtain real
+data from Twitter involved two steps:
+
+-   retrieving the social network relative to a subgraph of Twitter;
+
+-   obtaining the cascades from the tweets of the users in the subgraph.
+
+### Social structure
+
+To obtain a subgraph of Twitter we scraped the social network in a
+*Breadth First*-fashion
+
+-   start with a queue containing a random english speaking user;
+
+-   collect all his followers and followees and add them to the queue;
+
+-   pop the next user from the queue and repeat step 2 until the desired
+    number of users is reached;
+
+### Cascades
+
+Given the set of users $U$ collected in the previous step, we obtained
+all the tweets published by users in $U$ that fell in a certain
+time-window.
+
+So, obtained the hashtags from the set of tweets, we recreate for each
+distinct hashtag a propagation cascade in the following way:
+
+1.  order the tweets containing the hashtags by timestamp;
+
+2.  create the first cascade with the first tweet author as root node;
+
+3.  for each remaining tweet $t$:
+
+    1.  let $u$ be the node relative to the author of $t$;
+
+    2.  if $u$ has an incoming edge from an existing cascade tree $c$,
+        then add it to $c$;
+
+    3.  else create a new cascade tree with $u$ as root;
+
+The roots of the cascade trees were used as early adopters, the
+remaining nodes as final.
+
+The scraping process resulted in a dataset containing $~30k$ users
+connected by $~400k$ edges, which published a total of $12912921$
+tweets. Among these, \[..\] contained hashtags, if an hashtag was posted
+more than once from the same user in the given time window it was
+considered only once.
+
+### Sparsity
+
+The collected dataset, as you can see in the first plot, suffers from
+severe sparsity; Most of the hashtags appear in tweets of just one or
+two distinct authors.
+
+![image](figures/hashtags_distinct.png){width=".8\\textwidth"}
+
+Even worse, also ignoring hashtags which have been tweeted only by one
+author, most of the cascades are shallow.
+
+In the piechart, we see that among all the cascades the great majority
+of them is just made of a single node, meaning that in most cases there
+is no spreading tree structure at all, but rather a set of indipendent
+nodes who hold the same information.
+
+![image](figures/cascades_pie.png){width=".8\\textwidth"}
+
+This is due to two reasons:
+
+-   first, virality is intrinsecally rare: this may result surprising to
+    us because we can come up with many viral examples, but this is a
+    biased sampling because all the contents which are not viral don't
+    come up to our minds because we never see them at all; If we take
+    the ratio of viral contents over all the contents we would in fact
+    see that they are a great minority;
+
+-   second, we are observing a small subnetwork of the real social
+    network; this way, cascades that would be deep in the real network
+    may instead appear to us a set of independent shallow cascades, as
+    the subgraph is by construction incomplete and may therefore miss
+    the nodes which keep the subcascades connected in the real network;
+
+## Node features
+
+The representation learning techniques may fail to capture some local
+node properties, for this reason these can be preprocessed and used to
+enrich the nodes before passing them as input to the model;
+
+For each node, we computed the following features:
+
+-   *local clustering coefficient*, which quantifies how close its
+    neighbours are to being a clique; $$\begin{aligned}
+            C_{i} &= \frac{\text{# of existing edges in $N(v_i)$} }{\text{# of all possible edges in $N(v_i)$}} 
+        \end{aligned}$$ where $N(v_i)$ is the neighborhood of $v_i$ and
+    $n_i$ is the number of neighbors $|N(v_i)|$.
+
+-   *eigenvector centrality*, which measures the node influence in the
+    network based on the concept that connections to high-scoring nodes
+    contribute more to the score of the node in question than equal
+    connections to low-scoring nodes;
+
+-   *PageRank* coefficient, which is a kind of eigenvector centrality
+    which was originally used by Google to represent the likelihood that
+    a person randomly clicking on links will arrive at any particular
+    webpage;
+
+-   *Authority* and *Hubs* coefficients, the intuition here is that a
+    good hub represents a node that points to many other node, while a
+    good authority represents a node that is linked by many different
+    hubs.
+
+# Model
+
+## Generalizing convolution
+
+Graphs are *non-Euclidean* domains, meaning that they do not share the
+flat, grid-like structure of the *Euclidean* space, but instead have a
+non-trivial structure; this structure is informative, and should be
+accounted for along with the information coming from the data on the
+domain. Nevertheless, many of the operations employed by the building
+blocks of deep neural networks rely on this structure, convolution being
+one of them. The latter enforces by construction useful priors that we
+would like to inject in our learning models, like *self-similarity* and
+*locality*, that have their importance also in the graph setting.
+Nonetheless, convolution cannot naturally be applied to *non-Euclidean*
+domains, and so different approaches have been suggested over the last
+years. For this project, we have employed two architectures which
+exploit totally different theoretical frameworks:
+
+-   *Graph Attention Networks*, which fall under the category of spatial
+    approaches;
+
+-   *Graph Convolutional Networks*, which instead leverage spectral
+    theory.
+
+## Graph Convolutional Network
+
+*Spectral* approaches have this name since they define the convolution
+operation on graphs' nodes in the *spectral*, or *Fourier*, domain as
+the multiplication of a node signal $\mathbf{x} \in \mathbb{R}^n$ with a
+filter
+$\mathbf{g}_{\theta} = diag(g_{\theta}^{(1)}, \dots, g_{\theta}^{(n)})$
+in the Fourier domain.
+
+$$\mathbf{g}_{\theta} \star \mathbf{x} = \mathbf{U} \mathbf{g}_{\theta} \mathbf{U}^{\top} \mathbf{x}$$
+
+This definition exploits several properties. The first is the
+**convolution theorem**. The convolution theorem is a defining property
+of convolution and states that the Fourier transform diagonalizes
+convolution.
+$$\mathcal{F}\{ (\mathbf{g} \star \mathbf{x}) \} = \underbrace{\mathcal{F}\{ \mathbf{g} \} \mathcal{F}\{ \mathbf{x} \} }_{\text{simple product}}$$
+This means that the convolution of two signals, that in our case would
+be a node signal $\mathbf{x}$ in $\mathbb{R}^n$ and a parametrized
+filter $g_\theta,$ is a simple product, in the *Fourier* domain.
+However, the *Fourier transform* of a signal requires an integral, so it
+is not clearly defined on *non-Euclidean* domains, and so far we have
+only shifted the problem from convolution to *Fourier transform*. On the
+other hand, there is an operator, the *Laplacian*, that is a
+differential operator in $\mathbb{R}^n$ but that can be easily
+generalized to *non-Euclidean domains*, and for instance here we see its
+graph counterpart
+$$\Delta \mathbf{f} = \underbrace{\left( \mathbf{I}_n - \mathbf{D}^{-\frac{1}{2}} \mathbf{A} \mathbf{D}^{-\frac{1}{2}} \right)}_{\text{normalized graph Laplacian}} \mathbf{f}.$$
+
+What is the connection between the two? We can think of the Fourier
+transform of a function as expressing that function as a weighted
+average of functions, with some proper coefficients. Looking at the
+formula, the coefficients are the values taken by the original function,
+while the the functions are members of the so called *Fourier basis*,
+and in the case of $\mathbb{R}^n$ are called plane waves, since they are
+complex sinusoids. $$\begin{aligned}
+    \mathcal{F}\{ f(x) \} = \hat{f}(x) = \int f(x) \overbrace{e^{-2\pi i x \xi }}^{\text{plane waves are Fourier basis}} dx \\
+    \Delta \underbrace{\left( e^{-2\pi i x \xi} \right)}_{\text{plane wave}} = 4 \pi^2 |\xi|^2 \underbrace{e^{-2\pi i x \xi}}_{\text{Laplacian eigenfunction}}\end{aligned}$$
+It turns out that these plane waves are eigenfunctions of the
+*Laplacian*. We can now exploit this property by defining the *Fourier
+basis* on graphs to be the eigenvectors of the graph *Laplacian*, so
+that performing a *Fourier transform* is as simple as multiplying by the
+transposed matrix of eigenvectors. $$\begin{aligned}
+    \Delta = \mathbf{U} \mathbf*{\Lambda} \mathbf{U}^{\top} \\
+    \mathbf{\hat{x}} = \mathbf{U}^{\top} \mathbf{x}, \qquad \mathbf{x} = \mathbf{U} \mathbf{\hat{x}}\end{aligned}$$
+Now, the initial formula is explained as bringing the node signal
+$\mathbf{x}$ in the *Fourier* domain, performing convolution as a simple
+element-wise, product, and then go back to the spatial domain.
+$$\mathbf{g}_{\theta} \star \mathbf{x} = \underbrace{\mathbf{U}}_{\text{back to spatial domain}} \overbrace{\mathbf{g}_{\theta}}^{\text{conv. in Fourier domain}} \underbrace{\mathbf{U}^{\top} \mathbf{x}}_{\text{to Fourier domain}}$$
+with $\mathbf{g}_{\theta} = \mathbf{g}_{\theta}(\mathbf*{\Lambda}) =$
+learnable *spectral kernel functions* of the *Laplacian* eigenvalues.
+
+Now, this was the theoretical background to define spectral convolution.
+Then, different spectral approaches implement this operation in
+different ways. For instance, the operation that the *GCN* layer
+implements is a simplification. In particular, two main simplifications
+are made. The first is that computing $g_\theta$, as a function of the
+eigenvalues, requires an eigendecomposition which is computationally
+expensive. So, we can approximate it as a truncated expansion in terms
+of *Chebyshev* polynomials. These polynomials form an orthogonal basis
+for functions defined on the unit circle, so if we properly renormalize
+the matrix of eigenvalues we can approximate the filter up to some
+precision $K$. This means that convolution now has the form
+
+$$\begin{aligned}
+    \mathbf{g}_{\theta}(\mathbf*{\Lambda}) \approx \sum_{k=0}^K \theta_k' T_k \underbrace{(\mathbf*{\tilde{\Lambda}})}_{\text{renormalized}} \\
+    \mathbf{g}_{\theta}' \star \mathbf{x} \approx \sum_{k=0}^K \theta_k' T_k (\mathbf*{\tilde{L}}) \mathbf{x}\end{aligned}$$
+
+Notice how the Laplacian enters up to its $K$-th power, meaning that the
+output of the convolution for each node will depend on node signals from
+their $K$-th order neighborhood. The second simplification is that there
+is no reason to aggregate a $K$-order neighborhood, instead we could
+just stack $K$ layers, each computing one hop. By restricting $K$ to 1
+we get
+$$\mathbf{g}_{\theta}' \star \mathbf{x} \approx \theta_0' \mathbf{x} - \theta_1' \mathbf{D}^{-\frac{1}{2}} \mathbf{A} \mathbf{D}^{-\frac{1}{2}} \mathbf{x}$$
+The final simplification is just to reduce the number of free
+parameters, so we arrive to the actual implementation of the *GCN*
+layer.
+$$\mathbf{g}_{\theta}' \star \mathbf{x} \approx \overbrace{\theta}^{\text{learnable}} \underbrace{\left( \mathbf{I}_n +  \mathbf{D}^{-\frac{1}{2}} \mathbf{A} \mathbf{D}^{-\frac{1}{2}} \right)}_{\text{fixed}} \mathbf{x}$$
+Notice that this whole expression is fixed, meaning it has no learnable
+parameters and is computed once as a preprocessing step.
+
+## Graph Attention Network
+
+Now, *GCN* suffers from several problems. The first is something
+inherent to all spectral approaches, they cannot be transferred to
+unseen graphs. In particular, for *G*CN since the matrix
+$\mathbf*{\tilde{A}} = \mathbf{I}_n +  \mathbf{D}^{-\frac{1}{2}} \mathbf{A} \mathbf{D}^{-\frac{1}{2}}$
+is computed with degree and adjacency matrix of the training graph, that
+will be different for unseen graphs. This is not limiting for us, since
+the social graph is indeed fixed, but can of course be very limiting.
+
+The second is that the learnable parameters $\mathbf{\theta}$ are shared
+across the nodes in a neighborhood. Here, the neighborhood of node 1,
+that has signal $x_1$, is associated with $\theta_1$, meaning all the
+nodes in this neighborhood have importance $\theta_1$. As said before,
+*GAT* is a type of spatial approach, that addresses these problems by
+defining convolution directly in the spatial domain. In particular, a
+convolutional attention layer does the following computation. It
+receives in input a set of node features.
+$$\mathbf{H} = \{\ \mathbf{h}_1, \dots, \mathbf{h}_n \}, ~ \mathbf{h}_i \in \mathbb{R}^F$$
+Then applies a shared linear transformation to every node.
+$$\mathbf{h}_i \mapsto \mathbf{W} \mathbf{h}_i = \mathbf*{\tilde{h}}_i$$
+Now, let's focus on a single node, the $i$-th node. We have to somehow
+aggregate the node signals from its neighbors. *GAT* does so by
+assigning attention coefficients to each neighbor $j$.
+$$\alpha_{ij} = \mathrm{softmax}_j (e_{ij}) ~~ e_{ij} = a(\mathbf*{\tilde{h}}_i, \mathbf*{\tilde{h}}_j) = \sigma(\mathbf{a}^{\top} [\mathbf*{\tilde{h}}_i; \mathbf*{\tilde{h}}_j])$$
+These coefficients determine how important the signal of node $j$ is for
+node $i$, and are computed with an attention mechanism called masked
+attention, implemented as a single layer *MLP*.
+
+Finally, we compute a linear combination of the features of the
+neighbors, weighted by these attention coefficients. A self-loop is
+injected in the network since of course the feature of node $i$ itself
+should be taken into consideration, and then a nonlinearity is applied
+to produce the new hidden feature for node $i$.
+$$\mathbf{h}'_i = \sigma \left( \sum_{j \in \mathcal{N}_i} \alpha_{ij} \mathbf*{\tilde{h}}_j \right).$$
+
+![image](figures/gat_fig.png){width=".8\\textwidth"}
+
+# Results
+
+We evaluated our model with both the convolutional layers presented
+before, and also with both the *real* and *synthetic* data, to draft a
+comparison. The model performance is evaluated in terms of *F1 score*,
+since we trained it with *binary cross entropy* and hence it performs
+classification. Nevertheless, if we aggregate this prediction, i.e. we
+employ the graph sum pooling just at inference time, all the models
+showed better performance on the virality prediction as defined in
+principle, that is a regression on the whole social graph, with
+different node signals for different cascades.
+
+|     | Real  | Synthetic |
+|-----|-------|-----------|
+| GCN | 0.727 | 0.744     |
+| GAT | 0.784 | 0.829     |
+
+# Conclusions
+
+To recap, in this project we propose a *Geometric Deep Learning*
+approach to the problem of virality prediction on social networks,
+specifically *Twitter*. The main difficulty we faced during the project
+has been on data. In fact, data was difficult to obtain, we expected to
+find some datasets that suited our needs, but instead with the *GDPR*
+policies Twitter strictly limited the circulation of its data, and so we
+had to access it through its *APIs* and actually build our own dataset.
+This leads to the second problem. This data is **sparse**, in fact very
+sparse. We think that on social networks information has a natural
+tendency to spread widely, but this is a *bias*, since most of the
+examples we come up with pop to our mind exactly because they spread
+widely. We do not think of the majority of content, that simply gets
+uploaded and shared by little to nobody. So wide spread of information
+is rare, and this means that a learning model has to learn spreading
+patterns with very few informative samples.
+
+This is a general, unsolved problem. We saw some recent related work,
+solving (so to speak) the problem by carefully selecting informative
+samples among a huge collection of scraped data. This induces a bias,
+since the data that the model is shown does not correspond to how data
+in the real world is distributed. So, a possibility for future work on
+the project, and in general on this field, might be on how to apply
+signal processing techniques for reconstructing sparse signals, like
+*compressed sensing*, on *non-Euclidean domains*, like graphs.

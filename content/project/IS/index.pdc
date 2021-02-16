@@ -195,13 +195,14 @@ datasets.
 
 All the unconditional and conditional versions of the model that follow
 have been trained for $\approx 100$ epochs. The unconditional model was
-first tested on the insect-pest dataset, yielding the results in
-[3](#fig:insects-64){reference-type="ref" reference="fig:insects-64"}.
-As anticipated, we then tested it on the same dataset at higher
-resolution, yielding the results in
-[4](#fig:insects-128){reference-type="ref" reference="fig:insects-128"},
-and on the cars dataset with the same resolution, resulting in
-[5](#fig:cars-64){reference-type="ref" reference="fig:cars-64"}. As it
+tested both on low resolution sample and higher resolution ones, yielding the results that follow.
+
+64             |  128
+:-------------------------:|:-------------------------:
+![Unconditional model applied to the insect-pest dataset with resolution $64$.](figures/unconditional-insects-64.png){#fig:insects-64 width=".6\\textwidth"} | ![Unconditional model applied to the insect-pest dataset with resolution $128$.](figures/unconditional-insects-128.png){#fig:insects-128 width=".6\\textwidth"}
+
+
+ As it
 is evident from the samples, the resolution plays a strong role in
 generating realistic images, providing the model more information to
 leverage for the generation. The Inception Scores are as follow
@@ -265,9 +266,7 @@ process of co-adaption in which the parameters of one computational
 block were set to satisfy the other, and viceversa. To address this
 issue, we pretrained the classifier until convergence on the dataset of
 real images and then kept its parameters fixed during the training of
-the rest of the model. This yielded the results in
-[9](#fig:ac-generated-cars) and
-[8](#fig:ac-generated-dogs); 
+the rest of the model. This yielded the results in [8](#fig:ac-generated-dogs) and [9](#fig:ac-generated-cars); 
 
 class 'dog'             |  class 'car'
 :-------------------------:|:-------------------------:
@@ -390,3 +389,6 @@ Augmentation Using GANs." *CoRR* abs/1904.09135.
 <http://arxiv.org/abs/1904.09135>.
 :::
 :::
+
+
+
