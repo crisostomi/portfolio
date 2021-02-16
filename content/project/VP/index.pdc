@@ -436,11 +436,12 @@ node $i$, and are computed with an attention mechanism called masked
 attention, implemented as a single layer *MLP*.
 
 Finally, we compute a linear combination of the features of the
-neighbors, weighted by these attention coefficients. A self-loop is
-injected in the network since of course the feature of node $i$ itself
+neighbors, weighted by these attention coefficients. 
+$$\mathbf{h}'_i = \sigma \left( \sum_{j \in \mathcal{N}_i} \alpha_{ij} \mathbf*{\tilde{h}}_j \right).$$
+
+A self-loop is injected in the network since of course the feature of node $i$ itself
 should be taken into consideration, and then a nonlinearity is applied
 to produce the new hidden feature for node $i$.
-$$\mathbf{h}'_i = \sigma \left( \sum_{j \in \mathcal{N}_i} \alpha_{ij} \mathbf*{\tilde{h}}_j \right).$$
 
 ![image](figures/gat_fig.png){width=".8\\textwidth"}
 
