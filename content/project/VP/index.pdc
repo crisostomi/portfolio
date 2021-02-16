@@ -18,7 +18,9 @@ links:
   icon_pack: "fas"
   name: Notebook
   url: https://colab.research.google.com/drive/1Y-lRSJf27TnqiO7iInnmrJL3HikWgsX2
-  
+
+weight: 3
+
 url_code: ""
 url_pdf: ""
 url_slides: ""

@@ -17,6 +17,8 @@ links:
   icon_pack: "fas"
   name: Notebook
   url: ""
+
+weight: 1
   
 url_code: ""
 url_pdf: ""
