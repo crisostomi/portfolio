@@ -2,7 +2,10 @@
 title: Different approaches for large-scale recommender systems
 summary: Comparison of classical recommender system approaches with sequential ones in a big data regime. 
 tags:
-- Deep learning, Recommendation systems, Matrix completion
+- Deep Learning
+- Recommendation Systems
+- Matrix completion
+
 date: "2020-11-10T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).

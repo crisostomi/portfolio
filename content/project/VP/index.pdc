@@ -2,7 +2,11 @@
 title: Virality Prediction via Graph Neural Networks
 summary: Implementation of an ad-hoc graph neural network to predict how much a given Twitter hashtag will spread through the social network. 
 tags:
-- Geometric Deep Learning, Social Networks, Graph Machine Learning
+- Geometric Deep Learning
+- Social Networks
+- Graph Machine Learning
+- Deep Learning
+
 date: "2020-08-01T00:00:00Z"
 js: js/resp_mathjax.js
 

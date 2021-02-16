@@ -2,7 +2,10 @@
 title: Towards Conditionality for Probabilistic Diffusion Models
 summary: Testing of various approaches for the integration of conditionality into probabilistic diffusion models for image synthesis.
 tags:
-- Generative deep learning, Deep learning
+- Generative
+- Deep Learning
+- Computer Vision
+
 date: "2020-12-15T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).

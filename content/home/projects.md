@@ -29,8 +29,10 @@ content:
     tag: '*'
   - name: Deep Learning
     tag: Deep Learning
-  - name: Other
-    tag: Demo
+  - name: Geometric DL
+    tag: Geometric Deep Learning
+  - name: Graph ML
+    tag: Graph Machine Learning
 
 design:
   # Choose how many columns the section has. Valid values: '1' or '2'.
