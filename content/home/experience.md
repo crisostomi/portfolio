@@ -29,7 +29,7 @@ experience:
     date_start: '2020-09-22'
     date_end: '2020-10-22'
     description: |2- 
-        * Mentor and trainer for the preparatory course for the Italian Olympiads of Informatics;
+        * Mentor and lecturer for the preparatory course for the Italian Olympiads of Informatics;
         * assisted the students to efficiently solve computer science problems.
         
   - title: Volunteer Research Intern
