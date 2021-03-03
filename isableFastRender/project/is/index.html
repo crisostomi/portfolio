@@ -1,0 +1,1303 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head><script src="/livereload.js?port=1313&amp;mindelay=10&amp;v=2" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.0.0-beta.3 for Hugo" />
+  
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Donato Crisostomi" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Testing of various approaches for the integration of conditionality into probabilistic diffusion models for image synthesis." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="//localhost:1313/project/is/" />
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#1565c0" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/index.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_2.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_2.png" />
+
+  <link rel="canonical" href="//localhost:1313/project/is/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  
+    <meta property="twitter:site" content="@@DonatoCrisosto1" />
+    <meta property="twitter:creator" content="@@DonatoCrisosto1" />
+  
+  <meta property="og:site_name" content="Donato Crisostomi" />
+  <meta property="og:url" content="//localhost:1313/project/is/" />
+  <meta property="og:title" content="Towards Conditionality for Probabilistic Diffusion Models | Donato Crisostomi" />
+  <meta property="og:description" content="Testing of various approaches for the integration of conditionality into probabilistic diffusion models for image synthesis." /><meta property="og:image" content="//localhost:1313/project/is/featured.png" />
+    <meta property="twitter:image" content="//localhost:1313/project/is/featured.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2020-12-15T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2020-12-15T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "//localhost:1313/project/is/"
+  },
+  "headline": "Towards Conditionality for Probabilistic Diffusion Models",
+  
+  "image": [
+    "//localhost:1313/project/is/featured.png"
+  ],
+  
+  "datePublished": "2020-12-15T00:00:00Z",
+  "dateModified": "2020-12-15T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Donato Crisostomi"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Donato Crisostomi",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "//localhost:1313/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Testing of various approaches for the integration of conditionality into probabilistic diffusion models for image synthesis."
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Towards Conditionality for Probabilistic Diffusion Models | Donato Crisostomi</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="10c09e4cd827964b91d1b50cc9475bb6" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.js"></script>
+
+  
+
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Donato Crisostomi</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Donato Crisostomi</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+
+      
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article article-project">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>Towards Conditionality for Probabilistic Diffusion Models</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Dec 15, 2020
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+  
+
+
+
+
+<div class="btn-links mb-3">
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  <a class="btn btn-outline-primary btn-page-header" href="https://colab.research.google.com/drive/1v5QKy40gc3ymjVJu_c27axjhj5zDqs2W" target="_blank" rel="noopener">
+    <i class="fa fa-code mr-1"></i>
+    Notebook
+  </a>
+
+
+</div>
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 720px;">
+  <div style="position: relative">
+    <img src="/project/is/featured_hu4c58973315de489e04e5ef37c2c9ba31_526176_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <!--   We attempt to generate class-conditional images using a probabilistic
+  diffusion model by adapting to the latter class-conditional techniques
+  initially developed for *GANs*. In particular, we experiment two
+  architectures, one leveraging *Conditional Batch Norm* and one
+  integrating an *Auxiliary Classifier*, testing different resolutions
+  and configurations. The results suggest that these approaches cannot
+  be applied to diffusion models as they are: the *CBN* architecture
+  results in class-conditional images that do not look realistic while
+  the *AC* one yields prettier images but fails to capture the
+  conditionality. -->
+<hr />
+<h1 id="introduction">Introduction</h1>
+<p>Richard Feynman once said that</p>
+<blockquote>
+<blockquote>
+<p>What I cannot create, I do not understand.</p>
+</blockquote>
+</blockquote>
+<p>and, in the context of machine learning, this means that for machines to understand their input data, they should learn to create it. Moreover, being able to generate unseen images opens the door to some groundshaking applications, from super-resolution, to text-to-image translation (Ledig et al. 2016; Gorti and Ma 2018).</p>
+<p>Image synthesis nevertheless has been one of the most challenging tasks for machine learning to tackle. In fact, generative models are needed to generate new unseen images; but while we witnessed a huge leap forward in discriminative models during the first years of the last decade thanks to neural architectures, generative models initially failed to keep up. It was in <span class="math inline">\(2014\)</span> that <em>Goodfellow et al.</em> came up with <em>Generative Adversarial Networks</em> (Goodfellow et al. 2014). GANs and their evolutions have been the state-of-the-art since then, but a very recent paper shows that similar performance can be obtained with a different model that leverages probabilistic diffusion in order to generate images (Ho, Jain, and Abbeel 2020).</p>
+<p>Generative models have also been particularly useful to create artificial examples in order to augment datasets (Santos Tanaka and Aranha 2019), but in order to generate new images belonging to a certain class, one would need to have a conditional model. Goal of this research is therefore to integrate class-conditionality in probabilistic diffusion models.</p>
+<h1 id="related-work">Related work</h1>
+<p>As anticipated, the most used generative architecture is <em>Generative Adversarial Networks</em> (Goodfellow et al. 2014), which is composed of two networks that are trained <em>adversarily</em>: a <em>generator</em> is trained in such a way that a <em>discriminator</em> cannot distinguish between its generated samples and the real ones, while simultaneously training the discriminator to be able to distinguish between fake samples and real ones. To integrate class-conditionality in GANs, various approaches have been tried: <em>Brock et al.</em> provide class information to the generator with <em>conditional batch norm</em> (Brock, Donahue, and Simonyan 2018), while <em>Odena et al.</em> leverage an auxiliary classifier (Odena, Olah, and Shlens 2017).</p>
+<h1 id="proposed-method">Proposed method</h1>
+<p>A <em>diffusion probabilistic model</em> is a parameterized <em>Markov chain</em>: A Markov chain models the state of a system with a random variable that changes through time. For the Markov property to hold, the distribution of a state must depend only on the distribution of the previous state.</p>
+<figure>
+<img src="figures/markov-diffusion.png" id="fig:markov" alt="The directed graphical model used in the project." /><figcaption aria-hidden="true">The directed graphical model used in the project.</figcaption>
+</figure>
+<p>The training phase consists of two phases: a forward pass and a reverse pass, as can be seen in <a href="#fig:markov" data-reference-type="ref" data-reference="fig:markov">1</a>. In the former, also called the diffusion process, Gaussian noise is added to the image according to a fixed schedule so each transition in the Markov chain <span class="math inline">\(q(\mathbf{x}_{t}| \mathbf{x}_{t-1})\)</span> represents the addition of Gaussian noise. In the latter, the transitions of a reverse Markov chain are learned in order to reconstruct the destroyed signal; the parameters are learned by optimizing the variational bound on negative loglikelihood:</p>
+<div class="math">
+<p><span class="math display">\[\begin{align}
+  \mathbb{E}\left[ - \log p_{\theta}(\mathbf{x}_0) \right] &amp;\leq \mathbb{E}_q \left[ - \log \frac{p_\theta (\mathbf{x}_0, \dots, \mathbf{x}_T)}{q(\mathbf{x}_1, \dots, \mathbf{x}_T|\mathbf{x}_0)}\right] \\
+  &amp;= \mathbb{E}_q\left[ - \log \ p(\mathbf{x}_T) - \sum_{t \geq 1} \log \frac{p_\theta (\mathbf{x}_{t-1}|\mathbf{x}_t)}{q(\mathbf{x}_t | \mathbf{x}_{t-1})} \right]
+\end{align}\]</span></p>
+</div>
+<p>We employ the architecture suggested by the original paper, in which the denoiser is a <em>U-Net</em> (Ronneberger, Fischer, and Brox 2015), shown in <a href="#fig:u-net" data-reference-type="ref" data-reference="fig:u-net">2</a>.</p>
+<figure>
+<img src="figures/U-net.png" id="fig:u-net" alt="The popular U-Net architecture used for the denoiser." /><figcaption aria-hidden="true">The popular <em>U-Net</em> architecture used for the denoiser.</figcaption>
+</figure>
+<h2 id="conditional-batch-norm">Conditional Batch Norm</h2>
+<p><em>Conditional Batch Normalization</em> was first applied to language-vision tasks to implement the intuition that the linguistic input should modulate the entire visual processing, instead of being fused only in the last part of the process. <em>CBN</em> builds upon <em>Batch Normalization</em>, in which each batch is normalized as follows to reduce the internal co-variate shift <span class="math display">\[\text{BN}_{\gamma, \beta}(x_i) = \gamma_i \frac{x_i - \mathbb{E}(x_i)}{\sqrt{var(x_i)}} + \beta_i\]</span> In <em>CBN</em> we want to predict <span class="math inline">\(\gamma\)</span> and <span class="math inline">\(\beta\)</span> from an embedding of the class, so that the class may manipulate entire feature maps by scaling them up or down, negating them, or shutting them off completely (Odena, Olah, and Shlens 2017).</p>
+<p>The integration of <em>CBN</em> in the architecture is done by replacing the <em>Batch Norm</em> layers inside the denoiser architecture with <em>conditional</em> ones. We are going to refer to the model obtained by adding <em>CBN</em> to the original model as <span class="math inline">\(M_{CBN}\)</span>.</p>
+<h2 id="auxiliary-classifier">Auxiliary Classifier</h2>
+<p>Analogously to what has been done in (Odena, Olah, and Shlens 2017) for GANs, we have added an auxiliary classifier to the original architecture of the denoiser.</p>
+<p>To provide the class information to the denoiser, the label is embedded and reshaped to be the same dimension as one of the channels of the image, <em>i.e.</em> <span class="math inline">\(w \times h\)</span>, and then concatenated to the input image in the channel dimension. Images are thus tensors of shape <span class="math inline">\((b, c+1, w, h)\)</span>, where <span class="math inline">\(b\)</span> is the batch size, <span class="math inline">\(c\)</span> is the number of channels (RGB), <span class="math inline">\(w\)</span> is the width and <span class="math inline">\(h\)</span> is the height.</p>
+<p>The overall loss is then obtained as a weighted sum of the variational loss to account for the reconstruction error, and the classifier loss, which is a categorical cross entropy, where the weight is a hyper-parameter. The loss should this way be enriched with class information that should backpropagate to the parameters that are involved in the generation.</p>
+<p>We are going to refer to the model obtained by adding the auxiliary classifier to the original model as <span class="math inline">\(M_{AC}\)</span>.</p>
+<h1 id="dataset">Dataset</h1>
+<p>We based our implementation on the following repository <a href="https://github.com/lucidrains/denoising-diffusion-pytorch">denoising-diffusion-pytorch</a>, which provides a working PyTorch baseline.</p>
+<p>Our original goal was to apply the model to the <a href="https://openaccess.thecvf.com/content_CVPR_2019/papers/Wu_IP102_A_Large-Scale_Benchmark_Dataset_for_Insect_Pest_Recognition_CVPR_2019_paper.pdf">insect-pest dataset</a> to create new artificial samples for dataset augmentation. The original dataset consisted of over <span class="math inline">\(75k\)</span> images, but most of the classes had few samples and low variance between them, we therefore used a subsample of <span class="math inline">\(5\)</span> classes, ammounting to <span class="math inline">\(\approx 25\)</span>k samples. The dataset is not really what a data scientist would dream of, as no bounding boxes were provided, and it is often hard even for humans to understand what’s in the image. To attribute the right degree of responsibility to the model and to the dataset, we also tested the model on a different dataset from Stanford, containing <span class="math inline">\(\approx 20k\)</span> images of cars.</p>
+<p>To test our proposed conditional methods, to simplify the visual inspection of the results, we instead created an ad-hoc dataset of only two classes with the aim of maximizing the difference between them. To this end, we took a subset of <span class="math inline">\(\approx 10k\)</span> images from the <em>Stanford dogs</em> (Khosla et al. 2011) and the <em>Stanford cars</em> (Krause et al. 2013) datasets.</p>
+<h1 id="results">Results</h1>
+<p>All the unconditional and conditional versions of the model that follow have been trained for <span class="math inline">\(\approx 100\)</span> epochs. The unconditional model was tested both on low resolution sample and higher resolution ones, yielding the results that follow.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">64</th>
+<th style="text-align: center;">128</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img src="figures/unconditional-insects-64.png" id="fig:insects-64" alt="Unconditional model applied to the insect-pest dataset with resolution 64." /></td>
+<td style="text-align: center;"><img src="figures/unconditional-insects-128.png" id="fig:insects-128" alt="Unconditional model applied to the insect-pest dataset with resolution 128." /></td>
+</tr>
+</tbody>
+</table>
+<p>As it is evident from the samples, the resolution plays a strong role in generating realistic images, providing the model more information to leverage for the generation. The Inception Scores are as follow</p>
+<center>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">64</th>
+<th style="text-align: center;">128</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">insects</td>
+<td style="text-align: center;">4.2</td>
+<td style="text-align: center;">4.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">cars</td>
+<td style="text-align: center;">3.32</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>Regarding the conditional model, the two proposed methods yielded totally different results. <span class="math inline">\(M_{CBN}\)</span> converges to a small reconstruction error, and the class of the generated images can often be inferred visually; see for example <a href="#fig:cbn-generated-dogs" data-reference-type="ref" data-reference="fig:cbn-generated-dogs">6</a> which is a batch of generated images for the ‘dog’ class and <a href="#fig:cbn-generated-cars" data-reference-type="ref" data-reference="fig:cbn-generated-cars">7</a> which is a batch of generated images for the ‘car’ class.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">class ‘dog’</th>
+<th style="text-align: center;">class ‘car’</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img src="figures/cbn-generated-dogs.png" id="fig:cbn-generated-dogs" alt="Images generated by M_{CBN} when supplied class ‘dog.’" /></td>
+<td style="text-align: center;"><img src="figures/cbn-generated-cars.png" id="fig:cbn-generated-cars" alt="Images generated by M_{CBN} when supplied class ‘car.’" /></td>
+</tr>
+</tbody>
+</table>
+<p>Nevertheless, the results appear as messy color spots which do not resemble any realistic image. As the reconstruction error is small, the problem seems to be related to the sampling procedure, and indeed it might be the case that the class information is not accounted for correctly during sampling, as the <em>CBN</em> is only part of the denoiser and class information does not influence the rest of the sampling process.</p>
+<figure>
+<img src="figures/CBN-t-sne-points.png" id="fig:cbn-t-sne-points" alt="t-sne plot of the images generated by M_{CBN}." /><figcaption aria-hidden="true"><em>t-sne</em> plot of the images generated by <span class="math inline">\(M_{CBN}\)</span>.</figcaption>
+</figure>
+<p>To check whether there is a class-related distinction between the generated images, we plotted the images with <em>t-SNE</em>, yielding the results that can be seen in <a href="#fig:cbn-t-sne-points" data-reference-type="ref" data-reference="fig:cbn-t-sne-points">11</a> and <a href="#fig:cbn-t-sne-images" data-reference-type="ref" data-reference="fig:cbn-t-sne-images">12</a>. The points seem to be fairly separable, indicating that the class is indeed infused in the generated images.</p>
+<figure>
+<img src="figures/CBN-t-sne-images.png" id="fig:cbn-t-sne-images" alt="t-sne plot of the images generated by M_{CBN} with each point visualized as the image that it embeds." /><figcaption aria-hidden="true"><em>t-sne</em> plot of the images generated by <span class="math inline">\(M_{CBN}\)</span> with each point visualized as the image that it embeds.</figcaption>
+</figure>
+<p><span class="math inline">\(M_{AC}\)</span> instead results in the converse, yielding almost realistic images that do not seem to be much influenced by the class. As a first attempt, we tried training the random-initialized classifier with the rest of the architecture; this resulted in a rapidly decreasing classifier loss that did not help the generation at all, but instead seemed to only worsen the results. To our advise, this was due to a process of co-adaption in which the parameters of one computational block were set to satisfy the other, and viceversa. To address this issue, we pretrained the classifier until convergence on the dataset of real images and then kept its parameters fixed during the training of the rest of the model. This yielded the results in <a href="#fig:ac-generated-dogs">8</a> and <a href="#fig:ac-generated-cars">9</a>;</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">class ‘dog’</th>
+<th style="text-align: center;">class ‘car’</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img src="figures/ac-generated-dogs.png" id="fig:ac-generated-dogs" alt="Images generated by M_{AC} when supplied class ‘dog.’" /></td>
+<td style="text-align: center;"><img src="figures/ac-generated-cars.png" id="fig:ac-generated-cars" alt="Images generated by M_{AC} when supplied class ‘car.’" /></td>
+</tr>
+</tbody>
+</table>
+<p>The images resemble cars, mostly ignoring the input label. We eventually tried feeding higher-resolution images to the model, but with no significant improvement. The generated images in fact do not resemble their class, but the classification loss still goes rapidly down; to provide an explanation, we visually inspected the images and found out that artifacts were present in every image (<a href="#fig:ac-generated-128" data-reference-type="ref" data-reference="fig:ac-generated-128">10</a>), probably resulting from the generator ‘tricking’ the classifier, emphasizing features that resulted in high confidence guesses in the latter.</p>
+<figure>
+<img src="figures/ac-generated-128.png" id="fig:ac-generated-128" alt="Images generated by M_{AC} when supplied class ‘car’ at resolution 128; artifacts are circled." /><figcaption aria-hidden="true">Images generated by <span class="math inline">\(M_{AC}\)</span> when supplied class ‘car’ at resolution <span class="math inline">\(128\)</span>; artifacts are circled.</figcaption>
+</figure>
+<p>We concluded that the model was not robust enough, and therefore tried to employ a finetuned <em>ResNet18</em> classifier, but this did not solve the issue.</p>
+<figure>
+<img src="figures/AC-t-sne-points.png" id="fig:ac-t-sne-points" alt="t-sne plot of the images generated by M_{AC}." /><figcaption aria-hidden="true"><em>t-sne</em> plot of the images generated by <span class="math inline">\(M_{AC}\)</span>.</figcaption>
+</figure>
+<p>As before, we plotted the images with <em>t-SNE</em> to check whether there is a class-related distinction between the images; as can be seen in <a href="#fig:ac-t-sne-points" data-reference-type="ref" data-reference="fig:ac-t-sne-points">13</a> and <a href="#fig:ac-t-sne-images" data-reference-type="ref" data-reference="fig:ac-t-sne-images">14</a>, this time the points are all mixed up, indicating that the model fails to conditionate the generation on the class.</p>
+<figure>
+<img src="figures/AC-t-sne-images.png" id="fig:ac-t-sne-images" alt="t-sne plot of the images generated by M_{AC} with each point visualized as the image that it embeds." /><figcaption aria-hidden="true"><em>t-sne</em> plot of the images generated by <span class="math inline">\(M_{AC}\)</span> with each point visualized as the image that it embeds.</figcaption>
+</figure>
+<h1 id="conclusions">Conclusions</h1>
+<p>The proposed methods do not yield acceptable results, indicating that it is not enough to adapt GANs techniques for class-conditionality to probabilistic diffusion models, while this is also not straightforward to do. This also emphasizes that, while seemingly close to GANs, this family of models requires ad-hoc research, as they are based on different theorical aspects.</p>
+<h1 id="references">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Brock2018gan" class="csl-entry" role="doc-biblioentry">
+Brock, Andrew, Jeff Donahue, and Karen Simonyan. 2018. “Large Scale GAN Training for High Fidelity Natural Image Synthesis.” <em>CoRR</em> abs/1809.11096. <a href="http://arxiv.org/abs/1809.11096" class="uri">http://arxiv.org/abs/1809.11096</a>.
+</div>
+<hr />
+<div id="ref-goodfellow2014generative" class="csl-entry" role="doc-biblioentry">
+Goodfellow, Ian J., Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio. 2014. “Generative Adversarial Networks.” <a href="http://arxiv.org/abs/1406.2661" class="uri">http://arxiv.org/abs/1406.2661</a>.
+</div>
+<hr />
+<div id="ref-text2image" class="csl-entry" role="doc-biblioentry">
+Gorti, Satya Krishna, and Jeremy Ma. 2018. “Text-to-Image-to-Text Translation Using Cycle Consistent Adversarial Networks.” <em>CoRR</em> abs/1808.04538. <a href="http://arxiv.org/abs/1808.04538" class="uri">http://arxiv.org/abs/1808.04538</a>.
+</div>
+<hr />
+<div id="ref-ho2020denoising" class="csl-entry" role="doc-biblioentry">
+Ho, Jonathan, Ajay Jain, and Pieter Abbeel. 2020. “Denoising Diffusion Probabilistic Models.” <a href="http://arxiv.org/abs/2006.11239" class="uri">http://arxiv.org/abs/2006.11239</a>.
+</div>
+<hr />
+<div id="ref-stanford-dogs" class="csl-entry" role="doc-biblioentry">
+Khosla, Aditya, Nityananda Jayadevaprakash, Bangpeng Yao, and Li Fei-Fei. 2011. “Novel Dataset for Fine-Grained Image Categorization.” In <em>First Workshop on Fine-Grained Visual Categorization, IEEE Conference on Computer Vision and Pattern Recognition</em>. Colorado Springs, CO.
+</div>
+<hr />
+<div id="ref-stanford-cars" class="csl-entry" role="doc-biblioentry">
+Krause, Jonathan, Michael Stark, Jia Deng, and Li Fei-Fei. 2013. “3d Object Representations for Fine-Grained Categorization.” In <em>4th International IEEE Workshop on 3d Representation and Recognition (3dRR-13)</em>. Sydney, Australia.
+</div>
+<hr />
+<div id="ref-super-resolution" class="csl-entry" role="doc-biblioentry">
+Ledig, Christian, Lucas Theis, Ferenc Huszar, Jose Caballero, Andrew P. Aitken, Alykhan Tejani, Johannes Totz, Zehan Wang, and Wenzhe Shi. 2016. “Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network.” <em>CoRR</em> abs/1609.04802. <a href="http://arxiv.org/abs/1609.04802" class="uri">http://arxiv.org/abs/1609.04802</a>.
+</div>
+<hr />
+<div id="ref-odena2017conditional" class="csl-entry" role="doc-biblioentry">
+Odena, Augustus, Christopher Olah, and Jonathon Shlens. 2017. “Conditional Image Synthesis with Auxiliary Classifier GANs.” <a href="http://arxiv.org/abs/1610.09585" class="uri">http://arxiv.org/abs/1610.09585</a>.
+</div>
+<hr />
+<div id="ref-U-net" class="csl-entry" role="doc-biblioentry">
+Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. 2015. “U-Net: Convolutional Networks for Biomedical Image Segmentation.” <em>CoRR</em> abs/1505.04597. <a href="http://arxiv.org/abs/1505.04597" class="uri">http://arxiv.org/abs/1505.04597</a>.
+</div>
+<hr />
+<div id="ref-data-augmentation" class="csl-entry" role="doc-biblioentry">
+Santos Tanaka, Fabio Henrique Kiyoiti dos, and Claus Aranha. 2019. “Data Augmentation Using GANs.” <em>CoRR</em> abs/1904.09135. <a href="http://arxiv.org/abs/1904.09135" class="uri">http://arxiv.org/abs/1904.09135</a>.
+</div>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/generative/">Generative</a>
+  
+  <a class="badge badge-light" href="/tag/deep-learning/">Deep Learning</a>
+  
+  <a class="badge badge-light" href="/tag/computer-vision/">Computer Vision</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=//localhost:1313/project/is/&amp;text=Towards%20Conditionality%20for%20Probabilistic%20Diffusion%20Models" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=//localhost:1313/project/is/&amp;t=Towards%20Conditionality%20for%20Probabilistic%20Diffusion%20Models" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Towards%20Conditionality%20for%20Probabilistic%20Diffusion%20Models&amp;body=//localhost:1313/project/is/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=//localhost:1313/project/is/&amp;title=Towards%20Conditionality%20for%20Probabilistic%20Diffusion%20Models" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Towards%20Conditionality%20for%20Probabilistic%20Diffusion%20Models%20//localhost:1313/project/is/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=//localhost:1313/project/is/&amp;title=Towards%20Conditionality%20for%20Probabilistic%20Diffusion%20Models" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="//localhost:1313/"><img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_hu1d09385b46c693aa30fd5ad9cdbaa006_3279575_270x270_fill_lanczos_center_2.png" alt="Donato Crisostomi"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="//localhost:1313/">Donato Crisostomi</a></h5>
+      <h6 class="card-subtitle">MSc student in Computer Science</h6>
+      <p class="card-text">My research interests revolve around artificial intelligence, in particular causality, meta-learning and geometric deep learning, especially when graphs are involved.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/DonatoCrisosto1" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/crisostomi" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/donato-crisostomi/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://drive.google.com/file/d/181wlsaPzcmEP8YsKdC_gavh7xWe_13eG/view?usp=sharing" target="_blank" rel="noopener">
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/project/rs/">Different approaches for large-scale recommender systems</a></li>
+      
+      <li><a href="/project/tsp-sc/">Topological Signal Processing over Simplicial Complexes (WIP)</a></li>
+      
+      <li><a href="/project/vp/">Virality Prediction via Graph Neural Networks</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+    <div class="project-related-pages content-widget-hr">
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+    </div>
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    <script src="/js/_vendor/bootstrap.bundle.min.js"></script>
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/en/js/wowchemy.min.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

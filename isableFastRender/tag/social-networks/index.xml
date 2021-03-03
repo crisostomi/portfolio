@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Social Networks | Donato Crisostomi</title>
+    <link>//localhost:1313/tag/social-networks/</link>
+      <atom:link href="//localhost:1313/tag/social-networks/index.xml" rel="self" type="application/rss+xml" />
+    <description>Social Networks</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 20 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>//localhost:1313/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_2.png</url>
+      <title>Social Networks</title>
+      <link>//localhost:1313/tag/social-networks/</link>
+    </image>
+    
+    <item>
+      <title>Topological Signal Processing over Simplicial Complexes (WIP)</title>
+      <link>//localhost:1313/project/tsp-sc/</link>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/project/tsp-sc/</guid>
+      <description>&lt;h1 id=&#34;center-coming-soon-center&#34;&gt;&lt;center&gt; Coming soon! &lt;/center&gt;&lt;/h1&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Virality Prediction via Graph Neural Networks</title>
+      <link>//localhost:1313/project/vp/</link>
+      <pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/project/vp/</guid>
+      <description>&lt;hr /&gt;
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;What is virality? Virality, in its original meaning, refers to viruses that can only survive by continously spreading from one host to another in a parasitic manner; Actually, many real life phenomena exhibit a &lt;em&gt;spreading behaviour&lt;/em&gt; to which we can extend the notion of virality.&lt;/p&gt;
+&lt;p&gt;The ability to predict the spreading potential of a certain signal has evident benefits, for example providing a mean to prevent the spread of undesired phenomena such as diseases or fake news, but also allowing companies to exploit this information to improve their advertising campaigns.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Graphs&lt;/em&gt; serve as an useful abstraction to model real world situations, and are well suited to represent spreading patterns:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;nodes&lt;/em&gt; represent components of interest (e.g. users in a social network);&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;edges&lt;/em&gt; define existing relations among these components;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;node signal&lt;/em&gt; represents the information, which is generated from some source node, and is propagated to its neighboring nodes through its edges, possibly iterating the process until all the nodes have been reached.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;task-formalization&#34;&gt;Task formalization&lt;/h2&gt;
+&lt;p&gt;A spreading piece of information &lt;span class=&#34;math inline&#34;&gt;\(m\)&lt;/span&gt; originates a &lt;em&gt;cascade&lt;/em&gt; in the network, to formalize the problem as a learning task we distinguish two sets, namely&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;early adopters&lt;/em&gt;, and&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;final adopters&lt;/em&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The former are the ones producing the information as they don’t receive it from other nodes, while the latter are those who adopt the information at the end of the propagation process, or, if you think about it as a disease, those who get infected.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&#34;figures/T2.png&#34; id=&#34;fig:spread-proc&#34; alt=&#34;Spreading process.&#34; /&gt;&lt;figcaption aria-hidden=&#34;true&#34;&gt;Spreading process.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;In the example, the information is originally produced by nodes &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(e\)&lt;/span&gt; independently, and is then spread in subsequent moments until it stops. The final adopters will be all the nodes who have been reached by the information, including the early adopters.&lt;/p&gt;
+&lt;p&gt;So, after a preprocessing step, each node will be characterized by the following two features&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;whether it is an early adopter: &lt;span class=&#34;math display&#34;&gt;\[s_{v}^{(0)} = \text{initial activation state of node } v\]&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;and whether it is a final adopter, which is the label we want to predict: &lt;span class=&#34;math display&#34;&gt;\[s_{v}^{(T)} = \text{final activation state of node } v\]&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The final virality coefficient for the piece of information &lt;span class=&#34;math inline&#34;&gt;\(m\)&lt;/span&gt; is eventually obtained by counting the final adopters. &lt;span class=&#34;math display&#34;&gt;\[\mathcal{P}_{m} = \sum_{v \in \mathcal{V}} s_{v}^{(T)} = n_{\infty}^m\]&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;approaches&#34;&gt;Approaches&lt;/h2&gt;
+&lt;p&gt;As a node prediction task, both &lt;em&gt;feature-based&lt;/em&gt; methods and &lt;em&gt;representation learning&lt;/em&gt; methods can be exploited. The former approach heavily depends on the quality of the hand-crafted features, which are generally extracted heuristically, while the latter allows to automatically learn representations of node statuses which are suited for the task at hand. A possible way to do this is by embedding the graphs into a vector space, and then using conventional representation learning techniques; nevertheless, a more natural approach would be to instead generalize the machine learning models to non-euclidean domains: in the case of deep learning models, this is usually called &lt;em&gt;geometric deep learning&lt;/em&gt;.&lt;/p&gt;
+&lt;h1 id=&#34;data&#34;&gt;Data&lt;/h1&gt;
+&lt;p&gt;For our task, both synthetic data and real world data have been used.&lt;/p&gt;
+&lt;h2 id=&#34;synthetic-data&#34;&gt;Synthetic data&lt;/h2&gt;
+&lt;p&gt;The synthetic data generation involves two steps:&lt;/p&gt;
+&lt;ol type=&#34;1&#34;&gt;
+&lt;li&gt;&lt;p&gt;generating the social structure of interest;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;generating a certain number of information cascades;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;social-structure&#34;&gt;Social structure&lt;/h3&gt;
+&lt;p&gt;To artificially generate a social network structure which resembles a real one, &lt;em&gt;random graph models&lt;/em&gt; are usually used. A good model should allow creating graphs for which the degree distribution follows a power-law, as happens in real social networks.&lt;/p&gt;
+&lt;p&gt;A power law is a functional relationship &lt;span class=&#34;math inline&#34;&gt;\(y = ax^{-c}\)&lt;/span&gt; between two quantities, where one quantity varies as a power of the other.&lt;/p&gt;
+&lt;p&gt;By applying the logarithm to both parts we have that &lt;span class=&#34;math display&#34;&gt;\[\begin{aligned}
+    y &amp;amp;= ax^{-c} \\
+    log(y) &amp;amp;= log(ax^{-c}) \\
+    log(y) &amp;amp;= log(a) -c \cdot log(x)\end{aligned}\]&lt;/span&gt; As a consequence, we get that a power law appears as a line in a log log scale plot, as can be seen in the Twitter degree distribution in figure.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&#34;figures/degree-distr.png&#34; id=&#34;fig:twit-deg-distr&#34; alt=&#34;Twitter degree distribution.&#34; /&gt;&lt;figcaption aria-hidden=&#34;true&#34;&gt;Twitter degree distribution.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;In the social network context it means that it is exponentially more likely to pick “normal people” with few friends or followers rather than popular profiles, called “celebrities” or “authorities”.&lt;/p&gt;
+&lt;p&gt;For this reason we opted for a &lt;em&gt;preferential attachment&lt;/em&gt; model, which works in the following way: you begin with a single node with a self loop, when you have built a graph with &lt;span class=&#34;math inline&#34;&gt;\(N-1\)&lt;/span&gt; nodes, you add the &lt;span class=&#34;math inline&#34;&gt;\(N\)&lt;/span&gt;-th node with an edge that goes from &lt;span class=&#34;math inline&#34;&gt;\(N\)&lt;/span&gt; to a node &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt; chosen accordingly with a probability proportional to the degree of &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Inductive definition of the model:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Base step: &lt;span class=&#34;math inline&#34;&gt;\(G_1\)&lt;/span&gt; is a single node with a self loop;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Inductive step (for &lt;span class=&#34;math inline&#34;&gt;\(i = 2, 3, \ldots\)&lt;/span&gt;):&lt;/p&gt;
+&lt;ol type=&#34;1&#34;&gt;
+&lt;li&gt;&lt;p&gt;add node &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt; to &lt;span class=&#34;math inline&#34;&gt;\(G_i\)&lt;/span&gt;;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;add a “&lt;em&gt;half edge&lt;/em&gt;” coming out from node &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt;;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;choose a node &lt;span class=&#34;math inline&#34;&gt;\(j\)&lt;/span&gt; randomly with probability proportional to its degree, i.e., &lt;span class=&#34;math inline&#34;&gt;\(P\left\{\text{neighbor of $N$ is $i$}\right\} = \frac{deg(i)}{\sum_{k=1}^{N} deg(k)}\)&lt;/span&gt;, where the denominator is a normalization factor;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;close the &lt;em&gt;half edge&lt;/em&gt; from &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt;, by connecting it to &lt;span class=&#34;math inline&#34;&gt;\(j\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;information-cascades&#34;&gt;Information cascades&lt;/h3&gt;
+&lt;p&gt;The cascades are generated with the &lt;em&gt;Independent Cascades&lt;/em&gt; model, which works in the following way: Let’s assume we have &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; nodes holding some piece of information (the seed set), the time is discrete and this information spreads over time.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;at time &lt;span class=&#34;math inline&#34;&gt;\(t_0\)&lt;/span&gt; the only persons having the information will be the ones in the seed seet;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;at time &lt;span class=&#34;math inline&#34;&gt;\(t_i\)&lt;/span&gt; for each of the edges incident on the nodes having the information we will be flipping a coin:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;with prob &lt;span class=&#34;math inline&#34;&gt;\(p\)&lt;/span&gt; the information will spread on that edge;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;else the edge is lost forever.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;real-data&#34;&gt;Real data&lt;/h2&gt;
+&lt;p&gt;Similarly to the synthetic data generation, the process to obtain real data from Twitter involved two steps:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;retrieving the social network relative to a subgraph of Twitter;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;obtaining the cascades from the tweets of the users in the subgraph.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;social-structure-1&#34;&gt;Social structure&lt;/h3&gt;
+&lt;p&gt;To obtain a subgraph of Twitter we scraped the social network in a &lt;em&gt;Breadth First&lt;/em&gt;-fashion&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;start with a queue containing a random english speaking user;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;collect all his followers and followees and add them to the queue;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;pop the next user from the queue and repeat step 2 until the desired number of users is reached;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;cascades&#34;&gt;Cascades&lt;/h3&gt;
+&lt;p&gt;Given the set of users &lt;span class=&#34;math inline&#34;&gt;\(U\)&lt;/span&gt; collected in the previous step, we obtained all the tweets published by users in &lt;span class=&#34;math inline&#34;&gt;\(U\)&lt;/span&gt; that fell in a certain time-window.&lt;/p&gt;
+&lt;p&gt;So, obtained the hashtags from the set of tweets, we recreate for each distinct hashtag a propagation cascade in the following way:&lt;/p&gt;
+&lt;ol type=&#34;1&#34;&gt;
+&lt;li&gt;&lt;p&gt;order the tweets containing the hashtags by timestamp;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;create the first cascade with the first tweet author as root node;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;for each remaining tweet &lt;span class=&#34;math inline&#34;&gt;\(t\)&lt;/span&gt;:&lt;/p&gt;
+&lt;ol type=&#34;1&#34;&gt;
+&lt;li&gt;&lt;p&gt;let &lt;span class=&#34;math inline&#34;&gt;\(u\)&lt;/span&gt; be the node relative to the author of &lt;span class=&#34;math inline&#34;&gt;\(t\)&lt;/span&gt;;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;if &lt;span class=&#34;math inline&#34;&gt;\(u\)&lt;/span&gt; has an incoming edge from an existing cascade tree &lt;span class=&#34;math inline&#34;&gt;\(c\)&lt;/span&gt;, then add it to &lt;span class=&#34;math inline&#34;&gt;\(c\)&lt;/span&gt;;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;else create a new cascade tree with &lt;span class=&#34;math inline&#34;&gt;\(u\)&lt;/span&gt; as root;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The roots of the cascade trees were used as early adopters, the remaining nodes as final.&lt;/p&gt;
+&lt;p&gt;The scraping process resulted in a dataset containing &lt;span class=&#34;math inline&#34;&gt;\(~30k\)&lt;/span&gt; users connected by &lt;span class=&#34;math inline&#34;&gt;\(~400k\)&lt;/span&gt; edges, which published a total of &lt;span class=&#34;math inline&#34;&gt;\(12912921\)&lt;/span&gt; tweets. Among these, [..] contained hashtags, if an hashtag was posted more than once from the same user in the given time window it was considered only once.&lt;/p&gt;
+&lt;h3 id=&#34;sparsity&#34;&gt;Sparsity&lt;/h3&gt;
+&lt;p&gt;The collected dataset, as you can see in the first plot, suffers from severe sparsity; Most of the hashtags appear in tweets of just one or two distinct authors.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&#34;figures/hashtags_distinct.png&#34; alt=&#34;image&#34; /&gt;&lt;figcaption aria-hidden=&#34;true&#34;&gt;image&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;Even worse, also ignoring hashtags which have been tweeted only by one author, most of the cascades are shallow.&lt;/p&gt;
+&lt;p&gt;In the piechart, we see that among all the cascades the great majority of them is just made of a single node, meaning that in most cases there is no spreading tree structure at all, but rather a set of indipendent nodes who hold the same information.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&#34;figures/cascades_pie.png&#34; alt=&#34;image&#34; /&gt;&lt;figcaption aria-hidden=&#34;true&#34;&gt;image&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;This is due to two reasons:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;first, virality is intrinsecally rare: this may result surprising to us because we can come up with many viral examples, but this is a biased sampling because all the contents which are not viral don’t come up to our minds because we never see them at all; If we take the ratio of viral contents over all the contents we would in fact see that they are a great minority;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;second, we are observing a small subnetwork of the real social network; this way, cascades that would be deep in the real network may instead appear to us a set of independent shallow cascades, as the subgraph is by construction incomplete and may therefore miss the nodes which keep the subcascades connected in the real network;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;node-features&#34;&gt;Node features&lt;/h2&gt;
+&lt;p&gt;The representation learning techniques may fail to capture some local node properties, for this reason these can be preprocessed and used to enrich the nodes before passing them as input to the model;&lt;/p&gt;
+&lt;p&gt;For each node, we computed the following features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;local clustering coefficient&lt;/em&gt;, which quantifies how close its neighbours are to being a clique; &lt;span class=&#34;math display&#34;&gt;\[\begin{aligned}
+        C_{i} &amp;amp;= \frac{\text{# of existing edges in $N(v_i)$} }{\text{# of all possible edges in $N(v_i)$}} 
+    \end{aligned}\]&lt;/span&gt; where &lt;span class=&#34;math inline&#34;&gt;\(N(v_i)\)&lt;/span&gt; is the neighborhood of &lt;span class=&#34;math inline&#34;&gt;\(v_i\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(n_i\)&lt;/span&gt; is the number of neighbors &lt;span class=&#34;math inline&#34;&gt;\(|N(v_i)|\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;eigenvector centrality&lt;/em&gt;, which measures the node influence in the network based on the concept that connections to high-scoring nodes contribute more to the score of the node in question than equal connections to low-scoring nodes;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;PageRank&lt;/em&gt; coefficient, which is a kind of eigenvector centrality which was originally used by Google to represent the likelihood that a person randomly clicking on links will arrive at any particular webpage;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Authority&lt;/em&gt; and &lt;em&gt;Hubs&lt;/em&gt; coefficients, the intuition here is that a good hub represents a node that points to many other node, while a good authority represents a node that is linked by many different hubs.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;model&#34;&gt;Model&lt;/h1&gt;
+&lt;h2 id=&#34;generalizing-convolution&#34;&gt;Generalizing convolution&lt;/h2&gt;
+&lt;p&gt;Graphs are &lt;em&gt;non-Euclidean&lt;/em&gt; domains, meaning that they do not share the flat, grid-like structure of the &lt;em&gt;Euclidean&lt;/em&gt; space, but instead have a non-trivial structure; this structure is informative, and should be accounted for along with the information coming from the data on the domain. Nevertheless, many of the operations employed by the building blocks of deep neural networks rely on this structure, convolution being one of them. The latter enforces by construction useful priors that we would like to inject in our learning models, like &lt;em&gt;self-similarity&lt;/em&gt; and &lt;em&gt;locality&lt;/em&gt;, that have their importance also in the graph setting. Nonetheless, convolution cannot naturally be applied to &lt;em&gt;non-Euclidean&lt;/em&gt; domains, and so different approaches have been suggested over the last years. For this project, we have employed two architectures which exploit totally different theoretical frameworks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Graph Attention Networks&lt;/em&gt;, which fall under the category of spatial approaches;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Graph Convolutional Networks&lt;/em&gt;, which instead leverage spectral theory.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;graph-convolutional-network&#34;&gt;Graph Convolutional Network&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Spectral&lt;/em&gt; approaches have this name since they define the convolution operation on graphs’ nodes in the &lt;em&gt;spectral&lt;/em&gt;, or &lt;em&gt;Fourier&lt;/em&gt;, domain as the multiplication of a node signal &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{x} \in \mathbb{R}^n\)&lt;/span&gt; with a filter &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{g}_{\theta} = diag(g_{\theta}^{(1)}, \dots, g_{\theta}^{(n)})\)&lt;/span&gt; in the Fourier domain.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\mathbf{g}_{\theta} \star \mathbf{x} = \mathbf{U} \mathbf{g}_{\theta} \mathbf{U}^{\top} \mathbf{x}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;This definition exploits several properties. The first is the &lt;strong&gt;convolution theorem&lt;/strong&gt;. The convolution theorem is a defining property of convolution and states that the Fourier transform diagonalizes convolution. &lt;span class=&#34;math display&#34;&gt;\[\mathcal{F}\{ (\mathbf{g} \star \mathbf{x}) \} = \underbrace{\mathcal{F}\{ \mathbf{g} \} \mathcal{F}\{ \mathbf{x} \} }_{\text{simple product}}\]&lt;/span&gt; This means that the convolution of two signals, that in our case would be a node signal &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{x}\)&lt;/span&gt; in &lt;span class=&#34;math inline&#34;&gt;\(\mathbb{R}^n\)&lt;/span&gt; and a parametrized filter &lt;span class=&#34;math inline&#34;&gt;\(g_\theta,\)&lt;/span&gt; is a simple product, in the &lt;em&gt;Fourier&lt;/em&gt; domain. However, the &lt;em&gt;Fourier transform&lt;/em&gt; of a signal requires an integral, so it is not clearly defined on &lt;em&gt;non-Euclidean&lt;/em&gt; domains, and so far we have only shifted the problem from convolution to &lt;em&gt;Fourier transform&lt;/em&gt;. On the other hand, there is an operator, the &lt;em&gt;Laplacian&lt;/em&gt;, that is a differential operator in &lt;span class=&#34;math inline&#34;&gt;\(\mathbb{R}^n\)&lt;/span&gt; but that can be easily generalized to &lt;em&gt;non-Euclidean domains&lt;/em&gt;, and for instance here we see its graph counterpart &lt;span class=&#34;math display&#34;&gt;\[\Delta \mathbf{f} = \underbrace{\left( \mathbf{I}_n - \mathbf{D}^{-\frac{1}{2}} \mathbf{A} \mathbf{D}^{-\frac{1}{2}} \right)}_{\text{normalized graph Laplacian}} \mathbf{f}.\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;What is the connection between the two? We can think of the Fourier transform of a function as expressing that function as a weighted average of functions, with some proper coefficients. Looking at the formula, the coefficients are the values taken by the original function, while the the functions are members of the so called &lt;em&gt;Fourier basis&lt;/em&gt;, and in the case of &lt;span class=&#34;math inline&#34;&gt;\(\mathbb{R}^n\)&lt;/span&gt; are called plane waves, since they are complex sinusoids. &lt;span class=&#34;math display&#34;&gt;\[\begin{aligned}
+    \mathcal{F}\{ f(x) \} = \hat{f}(x) = \int f(x) \overbrace{e^{-2\pi i x \xi }}^{\text{plane waves are Fourier basis}} dx \\
+    \Delta \underbrace{\left( e^{-2\pi i x \xi} \right)}_{\text{plane wave}} = 4 \pi^2 |\xi|^2 \underbrace{e^{-2\pi i x \xi}}_{\text{Laplacian eigenfunction}}\end{aligned}\]&lt;/span&gt; It turns out that these plane waves are eigenfunctions of the &lt;em&gt;Laplacian&lt;/em&gt;. We can now exploit this property by defining the &lt;em&gt;Fourier basis&lt;/em&gt; on graphs to be the eigenvectors of the graph &lt;em&gt;Laplacian&lt;/em&gt;, so that performing a &lt;em&gt;Fourier transform&lt;/em&gt; is as simple as multiplying by the transposed matrix of eigenvectors. &lt;span class=&#34;math display&#34;&gt;\[\begin{aligned}
+    \Delta = \mathbf{U} \mathbf*{\Lambda} \mathbf{U}^{\top} \\
+    \mathbf{\hat{x}} = \mathbf{U}^{\top} \mathbf{x}, \qquad \mathbf{x} = \mathbf{U} \mathbf{\hat{x}}\end{aligned}\]&lt;/span&gt; Now, the initial formula is explained as bringing the node signal &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{x}\)&lt;/span&gt; in the &lt;em&gt;Fourier&lt;/em&gt; domain, performing convolution as a simple element-wise, product, and then go back to the spatial domain. &lt;span class=&#34;math display&#34;&gt;\[\mathbf{g}_{\theta} \star \mathbf{x} = \underbrace{\mathbf{U}}_{\text{back to spatial domain}} \overbrace{\mathbf{g}_{\theta}}^{\text{conv. in Fourier domain}} \underbrace{\mathbf{U}^{\top} \mathbf{x}}_{\text{to Fourier domain}}\]&lt;/span&gt; with &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{g}_{\theta} = \mathbf{g}_{\theta}(\mathbf*{\Lambda}) =\)&lt;/span&gt; learnable &lt;em&gt;spectral kernel functions&lt;/em&gt; of the &lt;em&gt;Laplacian&lt;/em&gt; eigenvalues.&lt;/p&gt;
+&lt;p&gt;Now, this was the theoretical background to define spectral convolution. Then, different spectral approaches implement this operation in different ways. For instance, the operation that the &lt;em&gt;GCN&lt;/em&gt; layer implements is a simplification. In particular, two main simplifications are made. The first is that computing &lt;span class=&#34;math inline&#34;&gt;\(g_\theta\)&lt;/span&gt;, as a function of the eigenvalues, requires an eigendecomposition which is computationally expensive. So, we can approximate it as a truncated expansion in terms of &lt;em&gt;Chebyshev&lt;/em&gt; polynomials. These polynomials form an orthogonal basis for functions defined on the unit circle, so if we properly renormalize the matrix of eigenvalues we can approximate the filter up to some precision &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt;. This means that convolution now has the form&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{aligned}
+    \mathbf{g}_{\theta}(\mathbf*{\Lambda}) \approx \sum_{k=0}^K \theta_k&amp;#39; T_k \underbrace{(\mathbf*{\tilde{\Lambda}})}_{\text{renormalized}} \\
+    \mathbf{g}_{\theta}&amp;#39; \star \mathbf{x} \approx \sum_{k=0}^K \theta_k&amp;#39; T_k (\mathbf*{\tilde{L}}) \mathbf{x}\end{aligned}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Notice how the Laplacian enters up to its &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt;-th power, meaning that the output of the convolution for each node will depend on node signals from their &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt;-th order neighborhood. The second simplification is that there is no reason to aggregate a &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt;-order neighborhood, instead we could just stack &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt; layers, each computing one hop. By restricting &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt; to 1 we get &lt;span class=&#34;math display&#34;&gt;\[\mathbf{g}_{\theta}&amp;#39; \star \mathbf{x} \approx \theta_0&amp;#39; \mathbf{x} - \theta_1&amp;#39; \mathbf{D}^{-\frac{1}{2}} \mathbf{A} \mathbf{D}^{-\frac{1}{2}} \mathbf{x}\]&lt;/span&gt; The final simplification is just to reduce the number of free parameters, so we arrive to the actual implementation of the &lt;em&gt;GCN&lt;/em&gt; layer. &lt;span class=&#34;math display&#34;&gt;\[\mathbf{g}_{\theta}&amp;#39; \star \mathbf{x} \approx \overbrace{\theta}^{\text{learnable}} \underbrace{\left( \mathbf{I}_n +  \mathbf{D}^{-\frac{1}{2}} \mathbf{A} \mathbf{D}^{-\frac{1}{2}} \right)}_{\text{fixed}} \mathbf{x}\]&lt;/span&gt; Notice that this whole expression is fixed, meaning it has no learnable parameters and is computed once as a preprocessing step.&lt;/p&gt;
+&lt;h2 id=&#34;graph-attention-network&#34;&gt;Graph Attention Network&lt;/h2&gt;
+&lt;p&gt;Now, &lt;em&gt;GCN&lt;/em&gt; suffers from several problems. The first is something inherent to all spectral approaches, they cannot be transferred to unseen graphs. In particular, for &lt;em&gt;G&lt;/em&gt;CN since the matrix &lt;span class=&#34;math inline&#34;&gt;\(\mathbf*{\tilde{A}} = \mathbf{I}_n + \mathbf{D}^{-\frac{1}{2}} \mathbf{A} \mathbf{D}^{-\frac{1}{2}}\)&lt;/span&gt; is computed with degree and adjacency matrix of the training graph, that will be different for unseen graphs. This is not limiting for us, since the social graph is indeed fixed, but can of course be very limiting.&lt;/p&gt;
+&lt;p&gt;The second is that the learnable parameters &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{\theta}\)&lt;/span&gt; are shared across the nodes in a neighborhood. Here, the neighborhood of node 1, that has signal &lt;span class=&#34;math inline&#34;&gt;\(x_1\)&lt;/span&gt;, is associated with &lt;span class=&#34;math inline&#34;&gt;\(\theta_1\)&lt;/span&gt;, meaning all the nodes in this neighborhood have importance &lt;span class=&#34;math inline&#34;&gt;\(\theta_1\)&lt;/span&gt;. As said before, &lt;em&gt;GAT&lt;/em&gt; is a type of spatial approach, that addresses these problems by defining convolution directly in the spatial domain. In particular, a convolutional attention layer does the following computation. It receives in input a set of node features. &lt;span class=&#34;math display&#34;&gt;\[\mathbf{H} = \{\ \mathbf{h}_1, \dots, \mathbf{h}_n \}, ~ \mathbf{h}_i \in \mathbb{R}^F\]&lt;/span&gt; Then applies a shared linear transformation to every node. &lt;span class=&#34;math display&#34;&gt;\[\mathbf{h}_i \mapsto \mathbf{W} \mathbf{h}_i = \mathbf*{\tilde{h}}_i\]&lt;/span&gt; Now, let’s focus on a single node, the &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt;-th node. We have to somehow aggregate the node signals from its neighbors. &lt;em&gt;GAT&lt;/em&gt; does so by assigning attention coefficients to each neighbor &lt;span class=&#34;math inline&#34;&gt;\(j\)&lt;/span&gt;. &lt;span class=&#34;math display&#34;&gt;\[\alpha_{ij} = \mathrm{softmax}_j (e_{ij}) ~~ e_{ij} = a(\mathbf*{\tilde{h}}_i, \mathbf*{\tilde{h}}_j) = \sigma(\mathbf{a}^{\top} [\mathbf*{\tilde{h}}_i; \mathbf*{\tilde{h}}_j])\]&lt;/span&gt; These coefficients determine how important the signal of node &lt;span class=&#34;math inline&#34;&gt;\(j\)&lt;/span&gt; is for node &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt;, and are computed with an attention mechanism called masked attention, implemented as a single layer &lt;em&gt;MLP&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Finally, we compute a linear combination of the features of the neighbors, weighted by these attention coefficients. &lt;span class=&#34;math display&#34;&gt;\[\mathbf{h}&amp;#39;_i = \sigma \left( \sum_{j \in \mathcal{N}_i} \alpha_{ij} \mathbf*{\tilde{h}}_j \right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;A self-loop is injected in the network since of course the feature of node &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt; itself should be taken into consideration, and then a nonlinearity is applied to produce the new hidden feature for node &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt;.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&#34;figures/gat_fig.png&#34; alt=&#34;image&#34; /&gt;&lt;figcaption aria-hidden=&#34;true&#34;&gt;image&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h1 id=&#34;results&#34;&gt;Results&lt;/h1&gt;
+&lt;p&gt;We evaluated our model with both the convolutional layers presented before, and also with both the &lt;em&gt;real&lt;/em&gt; and &lt;em&gt;synthetic&lt;/em&gt; data, to draft a comparison. The model performance is evaluated in terms of &lt;em&gt;F1 score&lt;/em&gt;, since we trained it with &lt;em&gt;binary cross entropy&lt;/em&gt; and hence it performs classification. Nevertheless, if we aggregate this prediction, i.e. we employ the graph sum pooling just at inference time, all the models showed better performance on the virality prediction as defined in principle, that is a regression on the whole social graph, with different node signals for different cascades.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Real&lt;/th&gt;
+&lt;th&gt;Synthetic&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;GCN&lt;/td&gt;
+&lt;td&gt;0.727&lt;/td&gt;
+&lt;td&gt;0.744&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;GAT&lt;/td&gt;
+&lt;td&gt;0.784&lt;/td&gt;
+&lt;td&gt;0.829&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1 id=&#34;conclusions&#34;&gt;Conclusions&lt;/h1&gt;
+&lt;p&gt;To recap, in this project we propose a &lt;em&gt;Geometric Deep Learning&lt;/em&gt; approach to the problem of virality prediction on social networks, specifically &lt;em&gt;Twitter&lt;/em&gt;. The main difficulty we faced during the project has been on data. In fact, data was difficult to obtain, we expected to find some datasets that suited our needs, but instead with the &lt;em&gt;GDPR&lt;/em&gt; policies Twitter strictly limited the circulation of its data, and so we had to access it through its &lt;em&gt;APIs&lt;/em&gt; and actually build our own dataset. This leads to the second problem. This data is &lt;strong&gt;sparse&lt;/strong&gt;, in fact very sparse. We think that on social networks information has a natural tendency to spread widely, but this is a &lt;em&gt;bias&lt;/em&gt;, since most of the examples we come up with pop to our mind exactly because they spread widely. We do not think of the majority of content, that simply gets uploaded and shared by little to nobody. So wide spread of information is rare, and this means that a learning model has to learn spreading patterns with very few informative samples.&lt;/p&gt;
+&lt;p&gt;This is a general, unsolved problem. We saw some recent related work, solving (so to speak) the problem by carefully selecting informative samples among a huge collection of scraped data. This induces a bias, since the data that the model is shown does not correspond to how data in the real world is distributed. So, a possibility for future work on the project, and in general on this field, might be on how to apply signal processing techniques for reconstructing sparse signals, like &lt;em&gt;compressed sensing&lt;/em&gt;, on &lt;em&gt;non-Euclidean domains&lt;/em&gt;, like graphs.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1261 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head><script src="/livereload.js?port=1313&amp;mindelay=10&amp;v=2" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.0.0-beta.3 for Hugo" />
+  
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Donato Crisostomi" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Comparison of classical recommender system approaches with sequential ones in a big data regime." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="//localhost:1313/project/rs/" />
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#1565c0" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/index.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_2.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_2.png" />
+
+  <link rel="canonical" href="//localhost:1313/project/rs/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  
+    <meta property="twitter:site" content="@@DonatoCrisosto1" />
+    <meta property="twitter:creator" content="@@DonatoCrisosto1" />
+  
+  <meta property="og:site_name" content="Donato Crisostomi" />
+  <meta property="og:url" content="//localhost:1313/project/rs/" />
+  <meta property="og:title" content="Different approaches for large-scale recommender systems | Donato Crisostomi" />
+  <meta property="og:description" content="Comparison of classical recommender system approaches with sequential ones in a big data regime." /><meta property="og:image" content="//localhost:1313/project/rs/featured.png" />
+    <meta property="twitter:image" content="//localhost:1313/project/rs/featured.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2020-11-10T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2020-11-10T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "//localhost:1313/project/rs/"
+  },
+  "headline": "Different approaches for large-scale recommender systems",
+  
+  "image": [
+    "//localhost:1313/project/rs/featured.png"
+  ],
+  
+  "datePublished": "2020-11-10T00:00:00Z",
+  "dateModified": "2020-11-10T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Donato Crisostomi"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Donato Crisostomi",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "//localhost:1313/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Comparison of classical recommender system approaches with sequential ones in a big data regime."
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Different approaches for large-scale recommender systems | Donato Crisostomi</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="706739d7b5bf8151e9044cfdb8b3ba3c" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.js"></script>
+
+  
+
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Donato Crisostomi</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Donato Crisostomi</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+
+      
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article article-project">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Different approaches for large-scale recommender systems</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Nov 10, 2020
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+  
+
+
+
+
+<div class="btn-links mb-3">
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  <a class="btn btn-outline-primary btn-page-header" href="https://colab.research.google.com/drive/1yTmiblwA3a2hiX9rzTLGntyRddoTfx7q" target="_blank" rel="noopener">
+    <i class="fa fa-code mr-1"></i>
+    Notebook
+  </a>
+
+
+</div>
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 512px; max-height: 512px;">
+  <div style="position: relative">
+    <img src="/project/rs/featured.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <hr />
+<h1 id="introduction">Introduction</h1>
+<h2 id="motivation">Motivation</h2>
+<p>During the last few decades, we have witnessed the rise of web services offering any kind of goods, take for example Netflix for movies or Amazon for products. Such sites usually have huge catalogues of items that can overwhelm the user with too much information, making it hard for him to find items he would like; being able to narrow this large amount of contents is critical for these services, as it helps them generate greater incomes by suggesting users the right content to buy while also making them stand out from competitors as users find the service more useful.</p>
+<h2 id="formalization">Formalization</h2>
+<p>In a very general way, recommender systems are algorithms aimed at suggesting relevant items to users. Various approaches have been tried, among these we can define three families:</p>
+<ul>
+<li><p><em>content-based</em> recommender systems, which create items and users profiles, embed them in a numerical feature space, and then suggest to the user the items which are nearest to him;</p></li>
+<li><p><em>collaborative-filtering</em> recommender systems, which instead ignore content and rely only on user-item ratings; these furtherly divide in the way they suggest items to the user:</p>
+<ul>
+<li><p><em>user-based</em> approaches suggest him items liked by users similar to him;</p></li>
+<li><p><em>item-based</em> approaches instead suggest him items similar to items he liked;</p></li>
+</ul></li>
+<li><p>and finally <em>hybrid</em> recommender systems, which leverage both approaches.</p></li>
+</ul>
+<h5 id="sequential">Sequential</h5>
+<p>Recently, recommender systems have taken in consideration sequential dynamics, seeking to capture patterns in the sequence of actions users perform. Contrarily to temporal recommendation systems which explicitly take into account the time of the actions, sequential ones only consider the order of actions, modelling sequential patterns which are independent of time.</p>
+<p>As any sequence pattern recognition task, the problem is challenging, since the number of possible sequences grow exponentially with the number of past actions used as context. Markov-Chain models overcome this issue by conditioning the next action only on the previous few actions, characterizing effectively short-range item transitions. To capture longer-range item dependencies, neural architectures have been used.</p>
+<h1 id="data">Data</h1>
+<p>In this project we will see how recommender systems can be leveraged to suggest <em>games</em>; to do this, we will use a large dataset of Steam reviews, which is publicly available online.</p>
+<p><img src="figures/steam_wallpaper.jpg" /></p>
+<h2 id="description">Description</h2>
+<p>The dataset contains information regarding both games and user-game reviews, separated in two tables <em>steam_reviews</em> and <em>steam_games</em>; here we can see the schemas</p>
+<p><strong>steam_reviews</strong>:</p>
+<ul>
+<li><p><strong>username</strong>: reviewer username;</p></li>
+<li><p><strong>user_id</strong>: reviewer id;</p></li>
+<li><p><strong>product_id</strong>: reviewed game id;</p></li>
+<li><p><strong>text</strong>: content of the review;</p></li>
+<li><p><strong>date</strong>: date of the review;</p></li>
+<li><p><em>found_funny</em>: number of users who found the review funny;</p></li>
+<li><p><em>hours</em>: number of hours the user played the game;</p></li>
+<li><p><em>page</em>: the page in which the review appears;</p></li>
+<li><p><em>page_order</em>: ??</p></li>
+<li><p><em>products</em>: ???</p></li>
+<li><p><em>compensation</em>: ??</p></li>
+</ul>
+<p><strong>steam_games</strong>:</p>
+<ul>
+<li><p><em>title</em>;</p></li>
+<li><p><em>id</em>: game id;</p></li>
+<li><p><em>developer</em>: company that developed the game;</p></li>
+<li><p><em>genres</em>: genres of the game, <em>e.g.</em> action, adventure and so on;</p></li>
+<li><p><em>metascore</em>: overall user score of the game;</p></li>
+<li><p><em>price</em>: price of the game;</p></li>
+<li><p><em>discount_price</em>: discounted price;</p></li>
+<li><p><em>publisher</em>: company that published the game;</p></li>
+<li><p><em>release_date</em>;</p></li>
+<li><p><em>reviews_url</em>: url to the reviews of the game;</p></li>
+<li><p><em>specs</em>: characteristics of the game;</p></li>
+<li><p><em>tags</em>: tags of the game;</p></li>
+<li><p><em>url</em>: link to the game;</p></li>
+<li><p><em>app_name</em>: name of the application corresponding to the game;</p></li>
+<li><p><em>sentiment</em>: overall sentiment of the game;</p></li>
+<li><p><em>early_access</em>:</p></li>
+</ul>
+<p>We will use two models, plus a naive baseline:</p>
+<ul>
+<li><p><em>MF model</em>, which is a collaborative-filtering approach;</p></li>
+<li><p><em>RNN-based</em>, which is a sequential recommendation approach;</p></li>
+</ul>
+<p>Both don’t require item profiles, so we will not exploit the rich game features in <em>steam_games</em>, which may be used in a content-based or hybrid approach.</p>
+<p>Among the listed features in the review table, only the first 5 are needed for our approach, so after a bit of preprocessing we obtain the following features</p>
+<ul>
+<li><p><strong>user_id</strong>: reviewer id;</p></li>
+<li><p><strong>product_id</strong>: reviewed game id;</p></li>
+<li><p><strong>text</strong>: content of the review;</p></li>
+<li><p><strong>date</strong>: date of the review;</p></li>
+</ul>
+<p>so we have all we need to design the models.</p>
+<h2 id="plots">Plots</h2>
+<p>The dataset exhibits some non-trivial properties, it is for example evident that the distribution of ratings follows a power-law both concerning users that games:</p>
+<figure>
+<img src="figures/ratings_per_user.png" id="fig:ratings_user" alt="Ratings per user." /><figcaption aria-hidden="true">Ratings per user.</figcaption>
+</figure>
+<p>as we can see in the figure most of the users reviewed few games, while only few users have reviewed a significant number of games. The same thing happens for games, few games received a large amount of reviews, while most games have few.</p>
+<figure>
+<img src="figures/ratings_per_game.png" id="fig:ratings_game" alt="Ratings per game." /><figcaption aria-hidden="true">Ratings per game.</figcaption>
+</figure>
+<p>The distribution shows a long tail which amounts for a significant part of the catalogue, so a good recommender system should be able to recommend less famous games, even if it is in fact harder.</p>
+<figure>
+<img src="figures/long_tail.png" id="fig:long_tail" alt="Long tail." /><figcaption aria-hidden="true">Long tail.</figcaption>
+</figure>
+<h2 id="preprocessing">Preprocessing</h2>
+<p>Two of the models we will see require an explicit ratings matrix in input; nevertheless, our dataset only provides us text reviews, which must be numerically handled somehow. There are approaches which work directly on implicit feedbacks, but considering reviews as binary features which model whether the user-item interaction is present or absent doesn’t make good use of the information, as a review is much richer and can be seen as a verbose rating.</p>
+<p>For this task, we will use a pretrained <em>sentiment analyzer</em> from StanfordNLP, so every text review will be mapped to a value <span class="math inline">\(r \in \{0, 1, 2\}\)</span>, encoding the sentiment as follows</p>
+<ul>
+<li><p><span class="math inline">\(0\)</span>: negative;</p></li>
+<li><p><span class="math inline">\(1\)</span>: neutral;</p></li>
+<li><p><span class="math inline">\(2\)</span>: positive.</p></li>
+</ul>
+<p>Allowing us to reduce the problem to the classical explicit feedback setting.</p>
+<p>As we can see in the figure, reviews are fairly balanced, with most being neutral. Note that this may be true in the real distribution or a bias coming from the sentiment analyzer.</p>
+<figure>
+<img src="figures/sentiments.png" id="fig:sentiments" alt="Sentiment distribution." /><figcaption aria-hidden="true">Sentiment distribution.</figcaption>
+</figure>
+<h1 id="models">Models</h1>
+<h2 id="popularity-based">Popularity based</h2>
+<p>We will consider as a baseline a constant model, that is a model that suggests the same games to every user, independently from his tastes. As we don’t use any information regarding the user, the safest bet is to just suggest the most popular games.</p>
+<h2 id="matrix-factorization">Matrix Factorization</h2>
+<p>The first real model that we will try employs a <em>Latent Factor CF</em> approach. In general, latent factor models are statistical models that relate a set of observable variables (so-called manifest variables) to a set of latent variables. In our case we want to predict user ratings by representing both items and users with a number of hidden factors inferred from observed ratings.</p>
+<p>The basic assumption is that there exist an unknown low-dimensional representation of users and items where user-item affinity can be modeled accurately. <em>Matrix Factorization</em> is a way to obtain these lower-dimensional representations directly from the observed data.</p>
+<p>In general, we want to infer the rating <span class="math inline">\(r_{u, i}\)</span> of user <span class="math inline">\(u\)</span> to item <span class="math inline">\(i\)</span>;</p>
+<p>The framework works as follow:</p>
+<ul>
+<li><p>map both items and users to a <em>joint latent factor</em> d-dimensional space, so</p>
+<ul>
+<li><p>each user will be represented by <span class="math inline">\(\mathbf{x}_u \in \mathbb{R}^d\)</span>,</p></li>
+<li><p>each item will be represented by <span class="math inline">\(\mathbf{w}_i \in \mathbb{R}^d\)</span>;</p></li>
+</ul></li>
+<li><p>estimate <span class="math inline">\(r_{u, i}\)</span> by applying the dot product <span class="math display">\[\hat{r}_{u, i} = \mathbf{x}^T_u \cdot \mathbf{w}_i = \sum_{j=1}^{d} x_{u, j} w_{j, i}\]</span></p></li>
+<li><p>recommend to user <span class="math inline">\(u\)</span> the <span class="math inline">\(k\)</span> items for which the estimate is maximum.</p></li>
+</ul>
+<p>Easier said than done, as we need a reasonable way to map users and items to these latent factor vectors.</p>
+<figure>
+<img src="figures/MF.png" id="fig:MF" alt="Matrix Factorization." /><figcaption aria-hidden="true">Matrix Factorization.</figcaption>
+</figure>
+<p>What we can do is leverage the observed ratings which are contained in the matrix <span class="math inline">\(R\)</span>, and try to approximate <span class="math inline">\(R\)</span> with the product of two matrices <span class="math inline">\(X \in \mathbb{R}^{m \times d}\)</span> and <span class="math inline">\(W \in \mathbb{R}^{d \times n}\)</span>. This is equivalent to find the parameters that minimize the following loss function <span class="math display">\[\mathcal{L}(X, W) = \sum_{u, i \in D} \left( r_{u, i} - \mathbf{x}^T_u \cdot \mathbf{w}_i \right) ^2\]</span> plus possibly a regularization term.</p>
+<p>The resulting optimization problem can be solved either with SGD or ALS; The former is an iterative method which tries to minimize the loss function by descending its gradient, going opposite to the direction of steepest increase; nevertheless, this approach doesn’t scale well when <span class="math inline">\(R\)</span> grows large, therefore given the dimension of the ratings matrix in our scenario this may not be convenient.</p>
+<p>ALS overcomes the non-convexity of the objective function by alternately fixing one latent vector and updating the other one; when one latent vector is fixed, the objective becomes quadratic and thus convex, allowing to find a closed-form solution.</p>
+<h2 id="sequential-1">Sequential</h2>
+<h3 id="formalization-1">Formalization</h3>
+<p>To use sequential techniques we need to properly transform the dataset, obtaining for each user a vector <span class="math display">\[\mathbf{x} = (x_1, \dots, x_n)\]</span> where <span class="math inline">\(x_i\)</span> is the embedding of the <span class="math inline">\(i\)</span>-th game reviewed by the user, ordered by timestamp. We want the model to be able to predict the next game that will be reviewed by the user given the previous reviewed games, that is predicting <span class="math inline">\(x_i\)</span> given <span class="math inline">\(x_1, \dots, x_{i-1}\)</span>; To do this, we give the model the sequence of the first <span class="math inline">\(n-1\)</span> reviews <span class="math inline">\((x_1, \dots, x_{n-1})\)</span> as input and train it to predict the input shifted by 1 position <span class="math inline">\((x_2, \dots, x_{n})\)</span>. This is basically what in NLP is called <em>language modeling</em>, with the game ids composing the vocabulary.</p>
+<figure>
+<img src="figures/input_preprocess.png" id="fig:input-preprocess" alt="Input preprocessing." /><figcaption aria-hidden="true">Input preprocessing.</figcaption>
+</figure>
+<p>Cross entropy is used as loss function, as each token prediction is a multilabel classification task <span class="math display">\[\mathcal{L} = -\sum_{c=1}^My_{o,c}\log(p_{o,c})\]</span></p>
+<h3 id="lstm">LSTM</h3>
+<p>As we have previously introduced, sequential recommender systems can exploit specialized neural architectures such as <em>Recurrent Neural Networks</em>; these summarize the context of a certain token <span class="math inline">\(m\)</span> with a recurrently updated vector <span class="math display">\[\vec{h}_m = g(\vec{x}_m, \vec{h}_{m-1}), \quad m = 1,2, \dots, m\]</span></p>
+<p>where <span class="math inline">\(\vec{x}_m\)</span> is the vector embedding of the token <span class="math inline">\(w_m\)</span> and <span class="math inline">\(g\)</span> defines the recurrence. Nevertheless, RNNs often fail to capture long-time dependencies; for this reason, LSTMs are often used. These employ a more complex recurrence, in which a memory cell goes through a series of gates, in fact avoiding repeated applications of non-linearity. The hidden state <span class="math inline">\(\vec{h}_m\)</span> accounts for information in the input leading up to position <span class="math inline">\(m\)</span>, but it ignores the subsequent tokens, which may also be relevant to the tag <span class="math inline">\(y_m\)</span>; this can be addressed by adding a second LSTM, in which the input is reversed. This architecture is called <em>Bidirectional LSTM</em>, and is one of the most effective neural architectures for sequences; nevertheless, for how we modeled the problem it would allow the model to cheat, as for any intermediate prediction it would be able to peek at the next game in the sequence and give it in output correctly.</p>
+<p>Since the LSTM expects a batch of sequences of equal length, <em>padding</em> is added.</p>
+<figure>
+<img src="figures/neural_architecture.png" id="fig:model-arch" alt="Model architecture." /><figcaption aria-hidden="true">Model architecture.</figcaption>
+</figure>
+<p>The model thus works as follows:</p>
+<ol type="1">
+<li><p>each input sequence <span class="math inline">\(\mathbf{x}\)</span> is embedded by a word embedding layer;</p></li>
+<li><p>it is then passed to a <em>LSTM</em> encoder which takes as input the embedded sequence and returns a dynamic representation of each game and its context;</p></li>
+<li><p>the hidden representation is then given to a <em>Multi Layer Perceptron</em> that maps each game representation to the games space.</p></li>
+</ol>
+<h1 id="results">Results</h1>
+<h2 id="metrics">Metrics</h2>
+<p><em>Root Mean Squared Error</em> has been used as metric to evaluate the Matrix Factorization model, <span class="math display">\[{\displaystyle \text{RMSD} ={\sqrt {\frac {\sum _{t=1}^{T}({\hat {y}}_{t}-y_{t})^{2}}{T}}}.}\]</span></p>
+<p>while <em>Hit@</em><span class="math inline">\(10\)</span> has been used for the sequential model, which is a <em>top</em>-<span class="math inline">\(n\)</span> metric that counts the fraction of times that the ground-truth next item is among the top <span class="math inline">\(10\)</span> recommended items.</p>
+<p><span class="math display">\[\frac{\text{# hits}}{\text{# users}}\]</span></p>
+<h2 id="results-1">Results</h2>
+<h3 id="matrix-factorization-1">Matrix Factorization</h3>
+<p>In the table we can see the <em>RMSE</em> for the MF model against the popularity based baseline; while the results may not seem impressive, it must be noted that the problem is in fact challenging: sentiment analysis is still an open research field, the pretrained model that we have seen is said to reach an accuracy of <span class="math inline">\(70\%\)</span>, the resulting error pile-up with the error produced by the recommender system may be severe; moreover, the game reviews may be particularly difficult for the analyzer to get right, as gamers are often ironic and have their own niche vocabulary of words and meanings.</p>
+<h3 id="sequential-2">Sequential</h3>
+<p>In the table we can see the <em>hit@</em>10 score for the sequential model against the popularity baseline; an accuracy of <span class="math inline">\(0.503\)</span> would be low in a typical classification setting with few classes, especially if we consider that the model has 10 tries; nevertheless, in this scenario the model must be able to discriminate among <span class="math inline">\(8590\)</span> classes; to understand what that means, let’s see what score would achieve a random baseline. <span class="math display">\[\begin{aligned}
+    P\left\{hit\right\} &amp;= \sum_{i = 1}^{10} P\left\{pred_i \text{ is correct} \right\}\\
+    &amp;= \sum_{i=1}^{10} \frac{1}{\text{# classes}} = 10 \cdot \frac{1}{8590} \approx 1e^{-4}\end{aligned}\]</span></p>
+<h2 id="study-case">Study case</h2>
+<p>As a study case, I tried to feed the model with my own rated games to see if the predictions fit my tastes; Let’s try to evaluate just the recommending part, so I am going to give the games directly numeric ratings so to skip the sentiment analyzer part.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>We have seen two very different approaches to recommender systems, neither of them reached state of the art: for example, attention-based sequential recommender systems have reached an hit ratio at <span class="math inline">\(10\)</span> of <span class="math inline">\(0.7\)</span> over the same dataset. The MF approach we have seen is too naive and doesn’t exploit all the available features which would make up for a good hybrid based recommender system, while the sequential approach using RNNs has few intrinsic flaws, for example the LSTM outputs a sequence of games where the same game is often repeated while it can’t happen in the gold truth, nevertheless it is not easy to carve such constraints in the model.</p>
+<p>It would certainly be interesting to add content based features to both approaches, for example obtaining contextualized embeddings from the text reviews. For the sequential setting, it may be worth trying adding a sequence scorer on top of the LSTM, like a <em>Conditional Random Field</em>, to help assess the quality of a sequence of tags as a whole.</p>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/deep-learning/">Deep Learning</a>
+  
+  <a class="badge badge-light" href="/tag/recommendation-systems/">Recommendation Systems</a>
+  
+  <a class="badge badge-light" href="/tag/matrix-completion/">Matrix completion</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=//localhost:1313/project/rs/&amp;text=Different%20approaches%20for%20large-scale%20recommender%20systems" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=//localhost:1313/project/rs/&amp;t=Different%20approaches%20for%20large-scale%20recommender%20systems" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Different%20approaches%20for%20large-scale%20recommender%20systems&amp;body=//localhost:1313/project/rs/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=//localhost:1313/project/rs/&amp;title=Different%20approaches%20for%20large-scale%20recommender%20systems" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Different%20approaches%20for%20large-scale%20recommender%20systems%20//localhost:1313/project/rs/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=//localhost:1313/project/rs/&amp;title=Different%20approaches%20for%20large-scale%20recommender%20systems" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="//localhost:1313/"><img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_hu1d09385b46c693aa30fd5ad9cdbaa006_3279575_270x270_fill_lanczos_center_2.png" alt="Donato Crisostomi"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="//localhost:1313/">Donato Crisostomi</a></h5>
+      <h6 class="card-subtitle">MSc student in Computer Science</h6>
+      <p class="card-text">My research interests revolve around artificial intelligence, in particular causality, meta-learning and geometric deep learning, especially when graphs are involved.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/DonatoCrisosto1" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/crisostomi" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/donato-crisostomi/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://drive.google.com/file/d/181wlsaPzcmEP8YsKdC_gavh7xWe_13eG/view?usp=sharing" target="_blank" rel="noopener">
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/project/is/">Towards Conditionality for Probabilistic Diffusion Models</a></li>
+      
+      <li><a href="/project/tsp-sc/">Topological Signal Processing over Simplicial Complexes (WIP)</a></li>
+      
+      <li><a href="/project/vp/">Virality Prediction via Graph Neural Networks</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+    <div class="project-related-pages content-widget-hr">
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+    </div>
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    <script src="/js/_vendor/bootstrap.bundle.min.js"></script>
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/en/js/wowchemy.min.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

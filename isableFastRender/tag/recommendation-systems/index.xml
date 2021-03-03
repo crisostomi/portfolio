@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Recommendation Systems | Donato Crisostomi</title>
+    <link>//localhost:1313/tag/recommendation-systems/</link>
+      <atom:link href="//localhost:1313/tag/recommendation-systems/index.xml" rel="self" type="application/rss+xml" />
+    <description>Recommendation Systems</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 10 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>//localhost:1313/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_2.png</url>
+      <title>Recommendation Systems</title>
+      <link>//localhost:1313/tag/recommendation-systems/</link>
+    </image>
+    
+    <item>
+      <title>Different approaches for large-scale recommender systems</title>
+      <link>//localhost:1313/project/rs/</link>
+      <pubDate>Tue, 10 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/project/rs/</guid>
+      <description>&lt;hr /&gt;
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;During the last few decades, we have witnessed the rise of web services offering any kind of goods, take for example Netflix for movies or Amazon for products. Such sites usually have huge catalogues of items that can overwhelm the user with too much information, making it hard for him to find items he would like; being able to narrow this large amount of contents is critical for these services, as it helps them generate greater incomes by suggesting users the right content to buy while also making them stand out from competitors as users find the service more useful.&lt;/p&gt;
+&lt;h2 id=&#34;formalization&#34;&gt;Formalization&lt;/h2&gt;
+&lt;p&gt;In a very general way, recommender systems are algorithms aimed at suggesting relevant items to users. Various approaches have been tried, among these we can define three families:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;content-based&lt;/em&gt; recommender systems, which create items and users profiles, embed them in a numerical feature space, and then suggest to the user the items which are nearest to him;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;collaborative-filtering&lt;/em&gt; recommender systems, which instead ignore content and rely only on user-item ratings; these furtherly divide in the way they suggest items to the user:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;user-based&lt;/em&gt; approaches suggest him items liked by users similar to him;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;item-based&lt;/em&gt; approaches instead suggest him items similar to items he liked;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;and finally &lt;em&gt;hybrid&lt;/em&gt; recommender systems, which leverage both approaches.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;sequential&#34;&gt;Sequential&lt;/h5&gt;
+&lt;p&gt;Recently, recommender systems have taken in consideration sequential dynamics, seeking to capture patterns in the sequence of actions users perform. Contrarily to temporal recommendation systems which explicitly take into account the time of the actions, sequential ones only consider the order of actions, modelling sequential patterns which are independent of time.&lt;/p&gt;
+&lt;p&gt;As any sequence pattern recognition task, the problem is challenging, since the number of possible sequences grow exponentially with the number of past actions used as context. Markov-Chain models overcome this issue by conditioning the next action only on the previous few actions, characterizing effectively short-range item transitions. To capture longer-range item dependencies, neural architectures have been used.&lt;/p&gt;
+&lt;h1 id=&#34;data&#34;&gt;Data&lt;/h1&gt;
+&lt;p&gt;In this project we will see how recommender systems can be leveraged to suggest &lt;em&gt;games&lt;/em&gt;; to do this, we will use a large dataset of Steam reviews, which is publicly available online.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;figures/steam_wallpaper.jpg&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;description&#34;&gt;Description&lt;/h2&gt;
+&lt;p&gt;The dataset contains information regarding both games and user-game reviews, separated in two tables &lt;em&gt;steam_reviews&lt;/em&gt; and &lt;em&gt;steam_games&lt;/em&gt;; here we can see the schemas&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;steam_reviews&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;username&lt;/strong&gt;: reviewer username;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;user_id&lt;/strong&gt;: reviewer id;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;product_id&lt;/strong&gt;: reviewed game id;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;text&lt;/strong&gt;: content of the review;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;date&lt;/strong&gt;: date of the review;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;found_funny&lt;/em&gt;: number of users who found the review funny;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;hours&lt;/em&gt;: number of hours the user played the game;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;page&lt;/em&gt;: the page in which the review appears;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;page_order&lt;/em&gt;: ??&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;products&lt;/em&gt;: ???&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;compensation&lt;/em&gt;: ??&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;steam_games&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;title&lt;/em&gt;;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;id&lt;/em&gt;: game id;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;developer&lt;/em&gt;: company that developed the game;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;genres&lt;/em&gt;: genres of the game, &lt;em&gt;e.g.&lt;/em&gt; action, adventure and so on;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;metascore&lt;/em&gt;: overall user score of the game;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;price&lt;/em&gt;: price of the game;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;discount_price&lt;/em&gt;: discounted price;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;publisher&lt;/em&gt;: company that published the game;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;release_date&lt;/em&gt;;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;reviews_url&lt;/em&gt;: url to the reviews of the game;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;specs&lt;/em&gt;: characteristics of the game;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;tags&lt;/em&gt;: tags of the game;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;url&lt;/em&gt;: link to the game;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;app_name&lt;/em&gt;: name of the application corresponding to the game;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;sentiment&lt;/em&gt;: overall sentiment of the game;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;early_access&lt;/em&gt;:&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We will use two models, plus a naive baseline:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;MF model&lt;/em&gt;, which is a collaborative-filtering approach;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;RNN-based&lt;/em&gt;, which is a sequential recommendation approach;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Both don’t require item profiles, so we will not exploit the rich game features in &lt;em&gt;steam_games&lt;/em&gt;, which may be used in a content-based or hybrid approach.&lt;/p&gt;
+&lt;p&gt;Among the listed features in the review table, only the first 5 are needed for our approach, so after a bit of preprocessing we obtain the following features&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;user_id&lt;/strong&gt;: reviewer id;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;product_id&lt;/strong&gt;: reviewed game id;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;text&lt;/strong&gt;: content of the review;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;date&lt;/strong&gt;: date of the review;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;so we have all we need to design the models.&lt;/p&gt;
+&lt;h2 id=&#34;plots&#34;&gt;Plots&lt;/h2&gt;
+&lt;p&gt;The dataset exhibits some non-trivial properties, it is for example evident that the distribution of ratings follows a power-law both concerning users that games:&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&#34;figures/ratings_per_user.png&#34; id=&#34;fig:ratings_user&#34; alt=&#34;Ratings per user.&#34; /&gt;&lt;figcaption aria-hidden=&#34;true&#34;&gt;Ratings per user.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;as we can see in the figure most of the users reviewed few games, while only few users have reviewed a significant number of games. The same thing happens for games, few games received a large amount of reviews, while most games have few.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&#34;figures/ratings_per_game.png&#34; id=&#34;fig:ratings_game&#34; alt=&#34;Ratings per game.&#34; /&gt;&lt;figcaption aria-hidden=&#34;true&#34;&gt;Ratings per game.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;The distribution shows a long tail which amounts for a significant part of the catalogue, so a good recommender system should be able to recommend less famous games, even if it is in fact harder.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&#34;figures/long_tail.png&#34; id=&#34;fig:long_tail&#34; alt=&#34;Long tail.&#34; /&gt;&lt;figcaption aria-hidden=&#34;true&#34;&gt;Long tail.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h2 id=&#34;preprocessing&#34;&gt;Preprocessing&lt;/h2&gt;
+&lt;p&gt;Two of the models we will see require an explicit ratings matrix in input; nevertheless, our dataset only provides us text reviews, which must be numerically handled somehow. There are approaches which work directly on implicit feedbacks, but considering reviews as binary features which model whether the user-item interaction is present or absent doesn’t make good use of the information, as a review is much richer and can be seen as a verbose rating.&lt;/p&gt;
+&lt;p&gt;For this task, we will use a pretrained &lt;em&gt;sentiment analyzer&lt;/em&gt; from StanfordNLP, so every text review will be mapped to a value &lt;span class=&#34;math inline&#34;&gt;\(r \in \{0, 1, 2\}\)&lt;/span&gt;, encoding the sentiment as follows&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(0\)&lt;/span&gt;: negative;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(1\)&lt;/span&gt;: neutral;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(2\)&lt;/span&gt;: positive.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Allowing us to reduce the problem to the classical explicit feedback setting.&lt;/p&gt;
+&lt;p&gt;As we can see in the figure, reviews are fairly balanced, with most being neutral. Note that this may be true in the real distribution or a bias coming from the sentiment analyzer.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&#34;figures/sentiments.png&#34; id=&#34;fig:sentiments&#34; alt=&#34;Sentiment distribution.&#34; /&gt;&lt;figcaption aria-hidden=&#34;true&#34;&gt;Sentiment distribution.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h1 id=&#34;models&#34;&gt;Models&lt;/h1&gt;
+&lt;h2 id=&#34;popularity-based&#34;&gt;Popularity based&lt;/h2&gt;
+&lt;p&gt;We will consider as a baseline a constant model, that is a model that suggests the same games to every user, independently from his tastes. As we don’t use any information regarding the user, the safest bet is to just suggest the most popular games.&lt;/p&gt;
+&lt;h2 id=&#34;matrix-factorization&#34;&gt;Matrix Factorization&lt;/h2&gt;
+&lt;p&gt;The first real model that we will try employs a &lt;em&gt;Latent Factor CF&lt;/em&gt; approach. In general, latent factor models are statistical models that relate a set of observable variables (so-called manifest variables) to a set of latent variables. In our case we want to predict user ratings by representing both items and users with a number of hidden factors inferred from observed ratings.&lt;/p&gt;
+&lt;p&gt;The basic assumption is that there exist an unknown low-dimensional representation of users and items where user-item affinity can be modeled accurately. &lt;em&gt;Matrix Factorization&lt;/em&gt; is a way to obtain these lower-dimensional representations directly from the observed data.&lt;/p&gt;
+&lt;p&gt;In general, we want to infer the rating &lt;span class=&#34;math inline&#34;&gt;\(r_{u, i}\)&lt;/span&gt; of user &lt;span class=&#34;math inline&#34;&gt;\(u\)&lt;/span&gt; to item &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt;;&lt;/p&gt;
+&lt;p&gt;The framework works as follow:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;map both items and users to a &lt;em&gt;joint latent factor&lt;/em&gt; d-dimensional space, so&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;each user will be represented by &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{x}_u \in \mathbb{R}^d\)&lt;/span&gt;,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;each item will be represented by &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{w}_i \in \mathbb{R}^d\)&lt;/span&gt;;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;estimate &lt;span class=&#34;math inline&#34;&gt;\(r_{u, i}\)&lt;/span&gt; by applying the dot product &lt;span class=&#34;math display&#34;&gt;\[\hat{r}_{u, i} = \mathbf{x}^T_u \cdot \mathbf{w}_i = \sum_{j=1}^{d} x_{u, j} w_{j, i}\]&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;recommend to user &lt;span class=&#34;math inline&#34;&gt;\(u\)&lt;/span&gt; the &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; items for which the estimate is maximum.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Easier said than done, as we need a reasonable way to map users and items to these latent factor vectors.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&#34;figures/MF.png&#34; id=&#34;fig:MF&#34; alt=&#34;Matrix Factorization.&#34; /&gt;&lt;figcaption aria-hidden=&#34;true&#34;&gt;Matrix Factorization.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;What we can do is leverage the observed ratings which are contained in the matrix &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;, and try to approximate &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt; with the product of two matrices &lt;span class=&#34;math inline&#34;&gt;\(X \in \mathbb{R}^{m \times d}\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(W \in \mathbb{R}^{d \times n}\)&lt;/span&gt;. This is equivalent to find the parameters that minimize the following loss function &lt;span class=&#34;math display&#34;&gt;\[\mathcal{L}(X, W) = \sum_{u, i \in D} \left( r_{u, i} - \mathbf{x}^T_u \cdot \mathbf{w}_i \right) ^2\]&lt;/span&gt; plus possibly a regularization term.&lt;/p&gt;
+&lt;p&gt;The resulting optimization problem can be solved either with SGD or ALS; The former is an iterative method which tries to minimize the loss function by descending its gradient, going opposite to the direction of steepest increase; nevertheless, this approach doesn’t scale well when &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt; grows large, therefore given the dimension of the ratings matrix in our scenario this may not be convenient.&lt;/p&gt;
+&lt;p&gt;ALS overcomes the non-convexity of the objective function by alternately fixing one latent vector and updating the other one; when one latent vector is fixed, the objective becomes quadratic and thus convex, allowing to find a closed-form solution.&lt;/p&gt;
+&lt;h2 id=&#34;sequential-1&#34;&gt;Sequential&lt;/h2&gt;
+&lt;h3 id=&#34;formalization-1&#34;&gt;Formalization&lt;/h3&gt;
+&lt;p&gt;To use sequential techniques we need to properly transform the dataset, obtaining for each user a vector &lt;span class=&#34;math display&#34;&gt;\[\mathbf{x} = (x_1, \dots, x_n)\]&lt;/span&gt; where &lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt; is the embedding of the &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt;-th game reviewed by the user, ordered by timestamp. We want the model to be able to predict the next game that will be reviewed by the user given the previous reviewed games, that is predicting &lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt; given &lt;span class=&#34;math inline&#34;&gt;\(x_1, \dots, x_{i-1}\)&lt;/span&gt;; To do this, we give the model the sequence of the first &lt;span class=&#34;math inline&#34;&gt;\(n-1\)&lt;/span&gt; reviews &lt;span class=&#34;math inline&#34;&gt;\((x_1, \dots, x_{n-1})\)&lt;/span&gt; as input and train it to predict the input shifted by 1 position &lt;span class=&#34;math inline&#34;&gt;\((x_2, \dots, x_{n})\)&lt;/span&gt;. This is basically what in NLP is called &lt;em&gt;language modeling&lt;/em&gt;, with the game ids composing the vocabulary.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&#34;figures/input_preprocess.png&#34; id=&#34;fig:input-preprocess&#34; alt=&#34;Input preprocessing.&#34; /&gt;&lt;figcaption aria-hidden=&#34;true&#34;&gt;Input preprocessing.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;Cross entropy is used as loss function, as each token prediction is a multilabel classification task &lt;span class=&#34;math display&#34;&gt;\[\mathcal{L} = -\sum_{c=1}^My_{o,c}\log(p_{o,c})\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&#34;lstm&#34;&gt;LSTM&lt;/h3&gt;
+&lt;p&gt;As we have previously introduced, sequential recommender systems can exploit specialized neural architectures such as &lt;em&gt;Recurrent Neural Networks&lt;/em&gt;; these summarize the context of a certain token &lt;span class=&#34;math inline&#34;&gt;\(m\)&lt;/span&gt; with a recurrently updated vector &lt;span class=&#34;math display&#34;&gt;\[\vec{h}_m = g(\vec{x}_m, \vec{h}_{m-1}), \quad m = 1,2, \dots, m\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where &lt;span class=&#34;math inline&#34;&gt;\(\vec{x}_m\)&lt;/span&gt; is the vector embedding of the token &lt;span class=&#34;math inline&#34;&gt;\(w_m\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(g\)&lt;/span&gt; defines the recurrence. Nevertheless, RNNs often fail to capture long-time dependencies; for this reason, LSTMs are often used. These employ a more complex recurrence, in which a memory cell goes through a series of gates, in fact avoiding repeated applications of non-linearity. The hidden state &lt;span class=&#34;math inline&#34;&gt;\(\vec{h}_m\)&lt;/span&gt; accounts for information in the input leading up to position &lt;span class=&#34;math inline&#34;&gt;\(m\)&lt;/span&gt;, but it ignores the subsequent tokens, which may also be relevant to the tag &lt;span class=&#34;math inline&#34;&gt;\(y_m\)&lt;/span&gt;; this can be addressed by adding a second LSTM, in which the input is reversed. This architecture is called &lt;em&gt;Bidirectional LSTM&lt;/em&gt;, and is one of the most effective neural architectures for sequences; nevertheless, for how we modeled the problem it would allow the model to cheat, as for any intermediate prediction it would be able to peek at the next game in the sequence and give it in output correctly.&lt;/p&gt;
+&lt;p&gt;Since the LSTM expects a batch of sequences of equal length, &lt;em&gt;padding&lt;/em&gt; is added.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&#34;figures/neural_architecture.png&#34; id=&#34;fig:model-arch&#34; alt=&#34;Model architecture.&#34; /&gt;&lt;figcaption aria-hidden=&#34;true&#34;&gt;Model architecture.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;The model thus works as follows:&lt;/p&gt;
+&lt;ol type=&#34;1&#34;&gt;
+&lt;li&gt;&lt;p&gt;each input sequence &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{x}\)&lt;/span&gt; is embedded by a word embedding layer;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;it is then passed to a &lt;em&gt;LSTM&lt;/em&gt; encoder which takes as input the embedded sequence and returns a dynamic representation of each game and its context;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;the hidden representation is then given to a &lt;em&gt;Multi Layer Perceptron&lt;/em&gt; that maps each game representation to the games space.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;results&#34;&gt;Results&lt;/h1&gt;
+&lt;h2 id=&#34;metrics&#34;&gt;Metrics&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Root Mean Squared Error&lt;/em&gt; has been used as metric to evaluate the Matrix Factorization model, &lt;span class=&#34;math display&#34;&gt;\[{\displaystyle \text{RMSD} ={\sqrt {\frac {\sum _{t=1}^{T}({\hat {y}}_{t}-y_{t})^{2}}{T}}}.}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;while &lt;em&gt;Hit@&lt;/em&gt;&lt;span class=&#34;math inline&#34;&gt;\(10\)&lt;/span&gt; has been used for the sequential model, which is a &lt;em&gt;top&lt;/em&gt;-&lt;span class=&#34;math inline&#34;&gt;\(n\)&lt;/span&gt; metric that counts the fraction of times that the ground-truth next item is among the top &lt;span class=&#34;math inline&#34;&gt;\(10\)&lt;/span&gt; recommended items.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\frac{\text{# hits}}{\text{# users}}\]&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;results-1&#34;&gt;Results&lt;/h2&gt;
+&lt;h3 id=&#34;matrix-factorization-1&#34;&gt;Matrix Factorization&lt;/h3&gt;
+&lt;p&gt;In the table we can see the &lt;em&gt;RMSE&lt;/em&gt; for the MF model against the popularity based baseline; while the results may not seem impressive, it must be noted that the problem is in fact challenging: sentiment analysis is still an open research field, the pretrained model that we have seen is said to reach an accuracy of &lt;span class=&#34;math inline&#34;&gt;\(70\%\)&lt;/span&gt;, the resulting error pile-up with the error produced by the recommender system may be severe; moreover, the game reviews may be particularly difficult for the analyzer to get right, as gamers are often ironic and have their own niche vocabulary of words and meanings.&lt;/p&gt;
+&lt;h3 id=&#34;sequential-2&#34;&gt;Sequential&lt;/h3&gt;
+&lt;p&gt;In the table we can see the &lt;em&gt;hit@&lt;/em&gt;10 score for the sequential model against the popularity baseline; an accuracy of &lt;span class=&#34;math inline&#34;&gt;\(0.503\)&lt;/span&gt; would be low in a typical classification setting with few classes, especially if we consider that the model has 10 tries; nevertheless, in this scenario the model must be able to discriminate among &lt;span class=&#34;math inline&#34;&gt;\(8590\)&lt;/span&gt; classes; to understand what that means, let’s see what score would achieve a random baseline. &lt;span class=&#34;math display&#34;&gt;\[\begin{aligned}
+    P\left\{hit\right\} &amp;amp;= \sum_{i = 1}^{10} P\left\{pred_i \text{ is correct} \right\}\\
+    &amp;amp;= \sum_{i=1}^{10} \frac{1}{\text{# classes}} = 10 \cdot \frac{1}{8590} \approx 1e^{-4}\end{aligned}\]&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;study-case&#34;&gt;Study case&lt;/h2&gt;
+&lt;p&gt;As a study case, I tried to feed the model with my own rated games to see if the predictions fit my tastes; Let’s try to evaluate just the recommending part, so I am going to give the games directly numeric ratings so to skip the sentiment analyzer part.&lt;/p&gt;
+&lt;h1 id=&#34;conclusions&#34;&gt;Conclusions&lt;/h1&gt;
+&lt;p&gt;We have seen two very different approaches to recommender systems, neither of them reached state of the art: for example, attention-based sequential recommender systems have reached an hit ratio at &lt;span class=&#34;math inline&#34;&gt;\(10\)&lt;/span&gt; of &lt;span class=&#34;math inline&#34;&gt;\(0.7\)&lt;/span&gt; over the same dataset. The MF approach we have seen is too naive and doesn’t exploit all the available features which would make up for a good hybrid based recommender system, while the sequential approach using RNNs has few intrinsic flaws, for example the LSTM outputs a sequence of games where the same game is often repeated while it can’t happen in the gold truth, nevertheless it is not easy to carve such constraints in the model.&lt;/p&gt;
+&lt;p&gt;It would certainly be interesting to add content based features to both approaches, for example obtaining contextualized embeddings from the text reviews. For the sequential setting, it may be worth trying adding a sequence scorer on top of the LSTM, like a &lt;em&gt;Conditional Random Field&lt;/em&gt;, to help assess the quality of a sequence of tags as a whole.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
