@@ -29,10 +29,12 @@ education:
   - course: MSc in Computer Science 
     institution: Sapienza, University of Rome
     grade: ""
+    gpa: "29.9/30"
     year: 2021
   - course: BSc in Computer Science
     institution: Sapienza, University of Rome
     grade: "110/110 with honours"
+    gpa: "29.2/30"
     year: 2019
 
 # Social/Academic Networking
